@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GP Articles — Training Corpus</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.group-hidden { display: none; }
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">GP Articles<span>Training Corpus</span></a>
+    <div class="nav-links">
+      <a href="#themes">By Theme</a>
+      <a href="#stats">Stats</a>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+  <section class="hero">
+    <h1>GP Articles</h1>
+    <p>A curated corpus of 30 opinion and analysis articles for A-Level General Paper training. Sourced from CNA, The Guardian, and BBC Future.</p>
+    <div class="stats-bar" id="stats">
+      <div class="stat"><div class="stat-num">30</div><div class="stat-label">Articles</div></div>
+      <div class="stat"><div class="stat-num">11</div><div class="stat-label">Themes</div></div>
+      <div class="stat"><div class="stat-num">35,732</div><div class="stat-label">Total Words</div></div>
+      <div class="stat"><div class="stat-num">~178</div><div class="stat-label">Min Read</div></div>
+    </div>
+  </section>
+
+  <section id="themes">
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterTheme('all')">All</button>
+      <button class="filter-btn" onclick="filterTheme('GEO')">Geopolitics & IR</button>
+      <button class="filter-btn" onclick="filterTheme('POL')">Politics & Governance</button>
+      <button class="filter-btn" onclick="filterTheme('SOC')">Society & Culture</button>
+      <button class="filter-btn" onclick="filterTheme('ECO')">Economics & Business</button>
+      <button class="filter-btn" onclick="filterTheme('SCI')">Science & Technology</button>
+      <button class="filter-btn" onclick="filterTheme('ENV')">Environment</button>
+      <button class="filter-btn" onclick="filterTheme('MED')">Media & Communication</button>
+      <button class="filter-btn" onclick="filterTheme('EDU')">Education</button>
+      <button class="filter-btn" onclick="filterTheme('HEA')">Health & Medicine</button>
+      <button class="filter-btn" onclick="filterTheme('ART')">Arts & Humanities</button>
+      <button class="filter-btn" onclick="filterTheme('ETH')">Ethics & Philosophy</button>
+
+    </div>
+
+    <div class="article-list">
+      
+    <div class="theme-group" data-theme="GEO">
+      <div class="theme-group-title">
+        <span class="theme-dot" style="background:#e6b450"></span>
+        Geopolitics & IR (10)
+      </div>
+      <div class="article-cards">
+      <a href="articles/02_CNA_Commentary_China_is_building_soft_power_as_Trump_burns_bridges.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-05-06</div>
+        <div class="card-title">China is building soft power as Trump burns bridges</div>
+        <div class="card-tags"><span class="tag tag-geo">Geopolitics & IR</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">2,904 words &middot; 14 min</span>
+        </div>
+      </a>
+      <a href="articles/03_CNA_Commentary_Could_an_energy_crisis_get_Philippines_and_China_to_cooperate_in_Sout.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-05-05</div>
+        <div class="card-title">Could an energy crisis get Philippines and China to cooperate in the South China Sea?</div>
+        <div class="card-tags"><span class="tag tag-geo">Geopolitics & IR</span><span class="tag tag-env">Environment</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">3,163 words &middot; 15 min</span>
+        </div>
+      </a>
+      <a href="articles/08_Guardian_Why_Friedrich_Merz_decided_to_risk_Donald_Trumps_wrath.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">The Guardian &middot; 2026-05-05</div>
+        <div class="card-title">Why Friedrich Merz decided to risk Donald Trump's wrath</div>
+        <div class="card-tags"><span class="tag tag-geo">Geopolitics & IR</span><span class="tag tag-pol">Politics & Governance</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-hard">Hard</span>
+          <span class="card-read">3,582 words &middot; 17 min</span>
+        </div>
+      </a>
+      <a href="articles/04_CNA_Commentary_By_blocking_Manus_sale_China_sends_a_warning_to_tech_companies.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-05-04</div>
+        <div class="card-title">By blocking Manus sale, China sends a warning to tech companies</div>
+        <div class="card-tags"><span class="tag tag-sci">Science & Technology</span><span class="tag tag-geo">Geopolitics & IR</span><span class="tag tag-eco">Economics & Business</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">2,954 words &middot; 14 min</span>
+        </div>
+      </a>
+      <a href="articles/23_Guardian_Trumps_war_has_backfired_spectacularly_Iran_is_now_more_influential_than_ever.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2026-04-23</div>
+        <div class="card-title">Trump’s war has backfired spectacularly: Iran is now more influential than ever</div>
+        <div class="card-tags"><span class="tag tag-geo">Geopolitics & IR</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-hard">Hard</span>
+          <span class="card-read">158 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/22_Guardian_Trumps_war_has_emboldened_Iran_Diplomacy_is_the_only_solution.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2026-04-13</div>
+        <div class="card-title">Trump’s war has emboldened Iran. Diplomacy is the only solution</div>
+        <div class="card-tags"><span class="tag tag-geo">Geopolitics & IR</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-hard">Hard</span>
+          <span class="card-read">160 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/24_Guardian_Autocracy_is_rising_in_the_west_But_the_global_south_proves_its_not_inevitable.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2026-02-26</div>
+        <div class="card-title">Autocracy is rising in the west. But the global south proves it’s not inevitable</div>
+        <div class="card-tags"><span class="tag tag-pol">Politics & Governance</span><span class="tag tag-geo">Geopolitics & IR</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-hard">Hard</span>
+          <span class="card-read">164 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/16_CNA_Commentary_Instead_of_worrying_whether_you_have_a_mental_disorder_focus_on_heali.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-01-05</div>
+        <div class="card-title">Commentary: Instead of worrying whether you have a mental disorder, focus on healing</div>
+        <div class="card-tags"><span class="tag tag-geo">Geopolitics & IR</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">276 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/30_Guardian_The_fledgling_UN_tried_to_rein_in_mass-scale_misinformation_The_world_turned_its.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2025-10-10</div>
+        <div class="card-title">The fledgling UN tried to rein in mass-scale misinformation. The world turned its back and is now paying the price</div>
+        <div class="card-tags"><span class="tag tag-geo">Geopolitics & IR</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">155 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/25_Guardian_Want_to_beat_authoritarianism_Look_to_Latin_America.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2025-04-25</div>
+        <div class="card-title">Want to beat authoritarianism? Look to Latin America</div>
+        <div class="card-tags"><span class="tag tag-pol">Politics & Governance</span><span class="tag tag-geo">Geopolitics & IR</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-hard">Hard</span>
+          <span class="card-read">164 words &middot; 1 min</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="theme-group" data-theme="POL">
+      <div class="theme-group-title">
+        <span class="theme-dot" style="background:#db6d8e"></span>
+        Politics & Governance (6)
+      </div>
+      <div class="article-cards">
+      <a href="articles/06_Guardian_Trump_and_his_oil-and-coal_oligarchy_should_face_sanctions_for_their_war_on_the.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">The Guardian &middot; 2026-05-06</div>
+        <div class="card-title">Trump and his oil-and-coal oligarchy should face sanctions for their war on the environment</div>
+        <div class="card-tags"><span class="tag tag-env">Environment</span><span class="tag tag-pol">Politics & Governance</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">3,582 words &middot; 17 min</span>
+        </div>
+      </a>
+      <a href="articles/07_Guardian_Reversing_Thatchers_failed_legacy_of_privatisation_can_be_a_Labour_vote-winner_I.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">The Guardian &middot; 2026-05-05</div>
+        <div class="card-title">Reversing Thatcher's failed legacy of privatisation can be a Labour vote-winner</div>
+        <div class="card-tags"><span class="tag tag-eco">Economics & Business</span><span class="tag tag-pol">Politics & Governance</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-hard">Hard</span>
+          <span class="card-read">3,674 words &middot; 18 min</span>
+        </div>
+      </a>
+      <a href="articles/08_Guardian_Why_Friedrich_Merz_decided_to_risk_Donald_Trumps_wrath.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">The Guardian &middot; 2026-05-05</div>
+        <div class="card-title">Why Friedrich Merz decided to risk Donald Trump's wrath</div>
+        <div class="card-tags"><span class="tag tag-geo">Geopolitics & IR</span><span class="tag tag-pol">Politics & Governance</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-hard">Hard</span>
+          <span class="card-read">3,582 words &middot; 17 min</span>
+        </div>
+      </a>
+      <a href="articles/05_CNA_Commentary_What_happened_when_a_group_of_locals_and_foreigners_spoke_bluntly_abo.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-04-21</div>
+        <div class="card-title">What happened when a group of locals and foreigners spoke bluntly about living together in Singapore</div>
+        <div class="card-tags"><span class="tag tag-soc">Society & Culture</span><span class="tag tag-pol">Politics & Governance</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-easy">Easy</span>
+          <span class="card-read">3,225 words &middot; 16 min</span>
+        </div>
+      </a>
+      <a href="articles/24_Guardian_Autocracy_is_rising_in_the_west_But_the_global_south_proves_its_not_inevitable.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2026-02-26</div>
+        <div class="card-title">Autocracy is rising in the west. But the global south proves it’s not inevitable</div>
+        <div class="card-tags"><span class="tag tag-pol">Politics & Governance</span><span class="tag tag-geo">Geopolitics & IR</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-hard">Hard</span>
+          <span class="card-read">164 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/25_Guardian_Want_to_beat_authoritarianism_Look_to_Latin_America.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2025-04-25</div>
+        <div class="card-title">Want to beat authoritarianism? Look to Latin America</div>
+        <div class="card-tags"><span class="tag tag-pol">Politics & Governance</span><span class="tag tag-geo">Geopolitics & IR</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-hard">Hard</span>
+          <span class="card-read">164 words &middot; 1 min</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="theme-group" data-theme="SOC">
+      <div class="theme-group-title">
+        <span class="theme-dot" style="background:#f78166"></span>
+        Society & Culture (4)
+      </div>
+      <div class="article-cards">
+      <a href="articles/05_CNA_Commentary_What_happened_when_a_group_of_locals_and_foreigners_spoke_bluntly_abo.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-04-21</div>
+        <div class="card-title">What happened when a group of locals and foreigners spoke bluntly about living together in Singapore</div>
+        <div class="card-tags"><span class="tag tag-soc">Society & Culture</span><span class="tag tag-pol">Politics & Governance</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-easy">Easy</span>
+          <span class="card-read">3,225 words &middot; 16 min</span>
+        </div>
+      </a>
+      <a href="articles/17_CNA_Commentary_Seniors_need_better_support_not_just_more_help.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-02-10</div>
+        <div class="card-title">Commentary: Seniors need better support, not just more help</div>
+        <div class="card-tags"><span class="tag tag-hea">Health & Medicine</span><span class="tag tag-soc">Society & Culture</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">271 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/21_CNA_Commentary_How_Singapore_can_protect_children_while_helping_them_navigate_social.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2025-08-22</div>
+        <div class="card-title">Commentary: How Singapore can protect children while helping them navigate social media</div>
+        <div class="card-tags"><span class="tag tag-med">Media & Communication</span><span class="tag tag-soc">Society & Culture</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">270 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/14_CNA_Commentary_Thambi_newsstand_closure_is_a_lesson_in_appreciating_the_present.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2024-06-11</div>
+        <div class="card-title">Commentary: Thambi newsstand closure is a lesson in appreciating the present</div>
+        <div class="card-tags"><span class="tag tag-art">Arts & Humanities</span><span class="tag tag-soc">Society & Culture</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-easy">Easy</span>
+          <span class="card-read">267 words &middot; 1 min</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="theme-group" data-theme="ECO">
+      <div class="theme-group-title">
+        <span class="theme-dot" style="background:#3fb950"></span>
+        Economics & Business (5)
+      </div>
+      <div class="article-cards">
+      <a href="articles/07_Guardian_Reversing_Thatchers_failed_legacy_of_privatisation_can_be_a_Labour_vote-winner_I.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">The Guardian &middot; 2026-05-05</div>
+        <div class="card-title">Reversing Thatcher's failed legacy of privatisation can be a Labour vote-winner</div>
+        <div class="card-tags"><span class="tag tag-eco">Economics & Business</span><span class="tag tag-pol">Politics & Governance</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-hard">Hard</span>
+          <span class="card-read">3,674 words &middot; 18 min</span>
+        </div>
+      </a>
+      <a href="articles/04_CNA_Commentary_By_blocking_Manus_sale_China_sends_a_warning_to_tech_companies.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-05-04</div>
+        <div class="card-title">By blocking Manus sale, China sends a warning to tech companies</div>
+        <div class="card-tags"><span class="tag tag-sci">Science & Technology</span><span class="tag tag-geo">Geopolitics & IR</span><span class="tag tag-eco">Economics & Business</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">2,954 words &middot; 14 min</span>
+        </div>
+      </a>
+      <a href="articles/19_CNA_Commentary_The_next_thing_AI_is_changing_Job_interviews.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-04-01</div>
+        <div class="card-title">Commentary: The next thing AI is changing? Job interviews</div>
+        <div class="card-tags"><span class="tag tag-eco">Economics & Business</span><span class="tag tag-sci">Science & Technology</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">271 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/20_CNA_Commentary_We_have_to_stop_calling_some_jobs_low_skilled.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-02-19</div>
+        <div class="card-title">Commentary: We have to stop calling some jobs ‘low skilled’</div>
+        <div class="card-tags"><span class="tag tag-eco">Economics & Business</span><span class="tag tag-edu">Education</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">273 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/13_CNA_Commentary_Even_with_government_support_SingLit_is_still_a_tough_sell.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2025-07-22</div>
+        <div class="card-title">Commentary: Even with government support, SingLit is still a tough sell</div>
+        <div class="card-tags"><span class="tag tag-art">Arts & Humanities</span><span class="tag tag-eco">Economics & Business</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">272 words &middot; 1 min</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="theme-group" data-theme="SCI">
+      <div class="theme-group-title">
+        <span class="theme-dot" style="background:#a371f7"></span>
+        Science & Technology (8)
+      </div>
+      <div class="article-cards">
+      <a href="articles/09_Guardian_A_game-changer_for_good_health_Scientists_believe_we_are_when_we_eat.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">The Guardian &middot; 2026-05-05</div>
+        <div class="card-title">A game-changer for good health: Scientists believe we are when we eat</div>
+        <div class="card-tags"><span class="tag tag-hea">Health & Medicine</span><span class="tag tag-sci">Science & Technology</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-easy">Easy</span>
+          <span class="card-read">3,332 words &middot; 16 min</span>
+        </div>
+      </a>
+      <a href="articles/04_CNA_Commentary_By_blocking_Manus_sale_China_sends_a_warning_to_tech_companies.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-05-04</div>
+        <div class="card-title">By blocking Manus sale, China sends a warning to tech companies</div>
+        <div class="card-tags"><span class="tag tag-sci">Science & Technology</span><span class="tag tag-geo">Geopolitics & IR</span><span class="tag tag-eco">Economics & Business</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">2,954 words &middot; 14 min</span>
+        </div>
+      </a>
+      <a href="articles/29_Guardian_AI_products_are_reaching_further_into_our_lives_Does_it_matter_who_controls_the.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2026-04-10</div>
+        <div class="card-title">AI products are reaching further into our lives. Does it matter who controls the companies behind them?</div>
+        <div class="card-tags"><span class="tag tag-sci">Science & Technology</span><span class="tag tag-eth">Ethics & Philosophy</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">170 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/19_CNA_Commentary_The_next_thing_AI_is_changing_Job_interviews.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-04-01</div>
+        <div class="card-title">Commentary: The next thing AI is changing? Job interviews</div>
+        <div class="card-tags"><span class="tag tag-eco">Economics & Business</span><span class="tag tag-sci">Science & Technology</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">271 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/28_Guardian_Congress_must_prevent_AI_surveillance_The_Anthropic_feud_proves_it.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2026-03-09</div>
+        <div class="card-title">Congress must prevent AI surveillance. The Anthropic feud proves it</div>
+        <div class="card-tags"><span class="tag tag-eth">Ethics & Philosophy</span><span class="tag tag-sci">Science & Technology</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-hard">Hard</span>
+          <span class="card-read">157 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/18_CNA_Commentary_Anxious_about_AI_I_went_back_to_school_and_this_is_what_I_learned.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-02-16</div>
+        <div class="card-title">Commentary: Anxious about AI, I went back to school and this is what I learned</div>
+        <div class="card-tags"><span class="tag tag-edu">Education</span><span class="tag tag-sci">Science & Technology</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">281 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/10_BBC_How_to_make_Google_put_preferred_sources_up_top_when_you_search.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">BBC Future &middot; 2026-01-28</div>
+        <div class="card-title">How to make Google put preferred sources up top when you search</div>
+        <div class="card-tags"><span class="tag tag-med">Media & Communication</span><span class="tag tag-sci">Science & Technology</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-easy">Easy</span>
+          <span class="card-read">1,537 words &middot; 7 min</span>
+        </div>
+      </a>
+      <a href="articles/31_Guardian_Science_is_under_siege_from_weaponised_disinformation__posing_a_threat_to_human.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2025-09-08</div>
+        <div class="card-title">Science is under siege from weaponised disinformation – posing a threat to human civilisation</div>
+        <div class="card-tags"><span class="tag tag-med">Media & Communication</span><span class="tag tag-sci">Science & Technology</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">155 words &middot; 1 min</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="theme-group" data-theme="ENV">
+      <div class="theme-group-title">
+        <span class="theme-dot" style="background:#3fb950"></span>
+        Environment (4)
+      </div>
+      <div class="article-cards">
+      <a href="articles/06_Guardian_Trump_and_his_oil-and-coal_oligarchy_should_face_sanctions_for_their_war_on_the.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">The Guardian &middot; 2026-05-06</div>
+        <div class="card-title">Trump and his oil-and-coal oligarchy should face sanctions for their war on the environment</div>
+        <div class="card-tags"><span class="tag tag-env">Environment</span><span class="tag tag-pol">Politics & Governance</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">3,582 words &middot; 17 min</span>
+        </div>
+      </a>
+      <a href="articles/03_CNA_Commentary_Could_an_energy_crisis_get_Philippines_and_China_to_cooperate_in_Sout.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-05-05</div>
+        <div class="card-title">Could an energy crisis get Philippines and China to cooperate in the South China Sea?</div>
+        <div class="card-tags"><span class="tag tag-geo">Geopolitics & IR</span><span class="tag tag-env">Environment</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">3,163 words &middot; 15 min</span>
+        </div>
+      </a>
+      <a href="articles/26_Guardian_Coral_reefs_are_nearing_extinction_2026_must_mark_a_turning_point.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2026-04-17</div>
+        <div class="card-title">Coral reefs are nearing extinction. 2026 must mark a turning point</div>
+        <div class="card-tags"><span class="tag tag-env">Environment</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">160 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/27_Guardian_Biodiversity_is_in_catastrophic_decline_Here_are_three_ways_to_ensure_Australias.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2025-10-28</div>
+        <div class="card-title">Biodiversity is in catastrophic decline. Here are three ways to ensure Australia’s conservation law actually works</div>
+        <div class="card-tags"><span class="tag tag-env">Environment</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">169 words &middot; 1 min</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="theme-group" data-theme="MED">
+      <div class="theme-group-title">
+        <span class="theme-dot" style="background:#f0883e"></span>
+        Media & Communication (4)
+      </div>
+      <div class="article-cards">
+      <a href="articles/10_BBC_How_to_make_Google_put_preferred_sources_up_top_when_you_search.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">BBC Future &middot; 2026-01-28</div>
+        <div class="card-title">How to make Google put preferred sources up top when you search</div>
+        <div class="card-tags"><span class="tag tag-med">Media & Communication</span><span class="tag tag-sci">Science & Technology</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-easy">Easy</span>
+          <span class="card-read">1,537 words &middot; 7 min</span>
+        </div>
+      </a>
+      <a href="articles/31_Guardian_Science_is_under_siege_from_weaponised_disinformation__posing_a_threat_to_human.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2025-09-08</div>
+        <div class="card-title">Science is under siege from weaponised disinformation – posing a threat to human civilisation</div>
+        <div class="card-tags"><span class="tag tag-med">Media & Communication</span><span class="tag tag-sci">Science & Technology</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">155 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/21_CNA_Commentary_How_Singapore_can_protect_children_while_helping_them_navigate_social.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2025-08-22</div>
+        <div class="card-title">Commentary: How Singapore can protect children while helping them navigate social media</div>
+        <div class="card-tags"><span class="tag tag-med">Media & Communication</span><span class="tag tag-soc">Society & Culture</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">270 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/15_CNA_Commentary_Brain_rot_has_overtaken_social_media_Heres_why_we_should_guard_agains.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2024-12-16</div>
+        <div class="card-title">Commentary: 'Brain rot' has overtaken social media. Here's why we should guard against it</div>
+        <div class="card-tags"><span class="tag tag-hea">Health & Medicine</span><span class="tag tag-med">Media & Communication</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-easy">Easy</span>
+          <span class="card-read">273 words &middot; 1 min</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="theme-group" data-theme="EDU">
+      <div class="theme-group-title">
+        <span class="theme-dot" style="background:#58a6ff"></span>
+        Education (3)
+      </div>
+      <div class="article-cards">
+      <a href="articles/01_CNA_Commentary_Is_caning_in_schools_a_good_way_to_teach_our_children.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-05-06</div>
+        <div class="card-title">Is caning in schools a good way to teach our children?</div>
+        <div class="card-tags"><span class="tag tag-edu">Education</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-easy">Easy</span>
+          <span class="card-read">3,440 words &middot; 17 min</span>
+        </div>
+      </a>
+      <a href="articles/20_CNA_Commentary_We_have_to_stop_calling_some_jobs_low_skilled.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-02-19</div>
+        <div class="card-title">Commentary: We have to stop calling some jobs ‘low skilled’</div>
+        <div class="card-tags"><span class="tag tag-eco">Economics & Business</span><span class="tag tag-edu">Education</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">273 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/18_CNA_Commentary_Anxious_about_AI_I_went_back_to_school_and_this_is_what_I_learned.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-02-16</div>
+        <div class="card-title">Commentary: Anxious about AI, I went back to school and this is what I learned</div>
+        <div class="card-tags"><span class="tag tag-edu">Education</span><span class="tag tag-sci">Science & Technology</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">281 words &middot; 1 min</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="theme-group" data-theme="HEA">
+      <div class="theme-group-title">
+        <span class="theme-dot" style="background:#f0883e"></span>
+        Health & Medicine (3)
+      </div>
+      <div class="article-cards">
+      <a href="articles/09_Guardian_A_game-changer_for_good_health_Scientists_believe_we_are_when_we_eat.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">The Guardian &middot; 2026-05-05</div>
+        <div class="card-title">A game-changer for good health: Scientists believe we are when we eat</div>
+        <div class="card-tags"><span class="tag tag-hea">Health & Medicine</span><span class="tag tag-sci">Science & Technology</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-easy">Easy</span>
+          <span class="card-read">3,332 words &middot; 16 min</span>
+        </div>
+      </a>
+      <a href="articles/17_CNA_Commentary_Seniors_need_better_support_not_just_more_help.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2026-02-10</div>
+        <div class="card-title">Commentary: Seniors need better support, not just more help</div>
+        <div class="card-tags"><span class="tag tag-hea">Health & Medicine</span><span class="tag tag-soc">Society & Culture</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">271 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/15_CNA_Commentary_Brain_rot_has_overtaken_social_media_Heres_why_we_should_guard_agains.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2024-12-16</div>
+        <div class="card-title">Commentary: 'Brain rot' has overtaken social media. Here's why we should guard against it</div>
+        <div class="card-tags"><span class="tag tag-hea">Health & Medicine</span><span class="tag tag-med">Media & Communication</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-easy">Easy</span>
+          <span class="card-read">273 words &middot; 1 min</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="theme-group" data-theme="ART">
+      <div class="theme-group-title">
+        <span class="theme-dot" style="background:#db61a2"></span>
+        Arts & Humanities (3)
+      </div>
+      <div class="article-cards">
+      <a href="articles/13_CNA_Commentary_Even_with_government_support_SingLit_is_still_a_tough_sell.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2025-07-22</div>
+        <div class="card-title">Commentary: Even with government support, SingLit is still a tough sell</div>
+        <div class="card-tags"><span class="tag tag-art">Arts & Humanities</span><span class="tag tag-eco">Economics & Business</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">272 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/12_CNA_Commentary_SG_Culture_Pass_affirms_the_importance_of_arts_and_heritage_in_Singap.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2025-03-12</div>
+        <div class="card-title">Commentary: SG Culture Pass affirms the importance of arts and heritage in Singaporean life</div>
+        <div class="card-tags"><span class="tag tag-art">Arts & Humanities</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-easy">Easy</span>
+          <span class="card-read">273 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/14_CNA_Commentary_Thambi_newsstand_closure_is_a_lesson_in_appreciating_the_present.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">CNA &middot; 2024-06-11</div>
+        <div class="card-title">Commentary: Thambi newsstand closure is a lesson in appreciating the present</div>
+        <div class="card-tags"><span class="tag tag-art">Arts & Humanities</span><span class="tag tag-soc">Society & Culture</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-easy">Easy</span>
+          <span class="card-read">267 words &middot; 1 min</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="theme-group" data-theme="ETH">
+      <div class="theme-group-title">
+        <span class="theme-dot" style="background:#8b949e"></span>
+        Ethics & Philosophy (2)
+      </div>
+      <div class="article-cards">
+      <a href="articles/29_Guardian_AI_products_are_reaching_further_into_our_lives_Does_it_matter_who_controls_the.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2026-04-10</div>
+        <div class="card-title">AI products are reaching further into our lives. Does it matter who controls the companies behind them?</div>
+        <div class="card-tags"><span class="tag tag-sci">Science & Technology</span><span class="tag tag-eth">Ethics & Philosophy</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-medium">Medium</span>
+          <span class="card-read">170 words &middot; 1 min</span>
+        </div>
+      </a>
+      <a href="articles/28_Guardian_Congress_must_prevent_AI_surveillance_The_Anthropic_feud_proves_it.html" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-source">Guardian &middot; 2026-03-09</div>
+        <div class="card-title">Congress must prevent AI surveillance. The Anthropic feud proves it</div>
+        <div class="card-tags"><span class="tag tag-eth">Ethics & Philosophy</span><span class="tag tag-sci">Science & Technology</span></div>
+        <div class="card-bottom">
+          <span class="card-difficulty diff-hard">Hard</span>
+          <span class="card-read">157 words &middot; 1 min</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    </div>
+  </section>
+</main>
+
+<script>
+function filterTheme(t) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  document.querySelectorAll('.theme-group').forEach(g => {
+    if (t === 'all' || g.dataset.theme === t) {
+      g.classList.remove('group-hidden');
+    } else {
+      g.classList.add('group-hidden');
+    }
+  });
+}
+</script>
+</body>
+</html>

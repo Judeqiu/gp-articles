@@ -1,0 +1,4 @@
+templates/
+build.py
+*.bak
+.DS_Store
