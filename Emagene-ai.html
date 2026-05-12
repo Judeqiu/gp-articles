@@ -215,18 +215,6 @@ section h3 {
 }
 .comp-table tr td:first-child { color: var(--text-primary); font-weight: 500; }
 
-/* Phase timeline */
-.phase-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin: 28px 0; }
-@media (max-width: 700px) { .phase-grid { grid-template-columns: 1fr 1fr; } }
-.phase-card {
-  background: var(--bg-secondary); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 20px; text-align: center;
-}
-.phase-card .ph-num { font-size: 2em; font-weight: 800; color: var(--border); margin-bottom: 8px; }
-.phase-card .ph-title { font-weight: 700; font-size: 0.9em; margin-bottom: 4px; }
-.phase-card .ph-time { font-size: 0.72em; color: var(--text-muted); margin-bottom: 10px; }
-.phase-card .ph-desc  { font-size: 0.78em; color: var(--text-secondary); line-height: 1.55; }
-
 /* Note box */
 .note-box {
   background: rgba(88,166,255,0.04); border: 1px solid #1f3d5a;
@@ -724,40 +712,6 @@ section h3 {
           and the broader march of medical knowledge.
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════ -->
-<!-- IMPLEMENTATION -->
-<!-- ═══════════════════════════════════════════ -->
-<section>
-  <div class="section-label">Implementation</div>
-  <h2>Phased Rollout</h2>
-  <div class="phase-grid">
-    <div class="phase-card">
-      <div class="ph-num">1</div>
-      <div class="ph-title">Foundation</div>
-      <div class="ph-time">Weeks 1–2</div>
-      <div class="ph-desc">Single-reasoner system with access to both knowledge bases. Structured report output. Clinician feedback capture enabled.</div>
-    </div>
-    <div class="phase-card">
-      <div class="ph-num">2</div>
-      <div class="ph-title">Multi-Specialist</div>
-      <div class="ph-time">Weeks 3–4</div>
-      <div class="ph-desc">Add Devil's Advocate and Evidence Reviewer roles. Round-based deliberation protocol. Divergence detection.</div>
-    </div>
-    <div class="phase-card">
-      <div class="ph-num">3</div>
-      <div class="ph-title">Learning System</div>
-      <div class="ph-time">Weeks 5–6</div>
-      <div class="ph-desc">Feedback-to-calibration pipeline. Automated case library enrichment. Periodic diagnostic recalibration from accumulated feedback.</div>
-    </div>
-    <div class="phase-card">
-      <div class="ph-num">4</div>
-      <div class="ph-title">Production</div>
-      <div class="ph-time">Weeks 7–8</div>
-      <div class="ph-desc">Monitoring dashboard. Assessment quality tracking. Safety guardrails. Edge-case handling protocols.</div>
     </div>
   </div>
 </section>
