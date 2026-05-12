@@ -1,46 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MedMulti — Multi-Agent Diagnostic System for Private Hospitals</title>
-<link rel="stylesheet" href="css/style.css">
+<title>Emagene — 长寿疗法智能诊断系统</title>
 <style>
-/* Page-specific overrides and additions */
 :root {
-  --med-blue: #58a6ff;
-  --med-green: #3fb950;
-  --med-amber: #e6b450;
-  --med-red: #f85149;
-  --med-purple: #a371f7;
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-card: #1c2128;
+  --border: #30363d;
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-muted: #6e7681;
+  --accent: #d4a574;
+  --accent-bright: #f0c080;
+  --emerald: #3fb950;
+  --sky: #58a6ff;
+  --amber: #e6b450;
+  --rose: #f85149;
+  --violet: #a371f7;
+  --radius: 8px;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+  --font-heading: Georgia, "Times New Roman", "Noto Serif SC", serif;
 }
 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-bright); }
+
+/* Navigation */
+.top-nav {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(12px);
+}
+.top-nav .nav-inner {
+  max-width: 900px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px;
+}
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 18px; font-weight: 700;
+  color: var(--emerald); letter-spacing: 0.5px;
+}
+.nav-logo span { color: var(--text-secondary); font-size: 13px; margin-left: 8px; font-family: var(--font-body); }
+.nav-links a { font-size: 0.88em; margin-left: 24px; color: var(--text-secondary); }
+.nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+/* Container */
 .container { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
 
 /* Hero */
 .hero { text-align: center; padding: 60px 0 40px; }
-.hero h1 { font-size: 2.6em; letter-spacing: -0.5px; margin-bottom: 12px; }
-.hero .subtitle { font-size: 1.15em; color: var(--text-secondary); max-width: 640px; margin: 0 auto 30px; line-height: 1.6; }
+.hero h1 { font-size: 2.6em; letter-spacing: -0.5px; margin-bottom: 8px; }
+.hero .tagline { font-size: 1.05em; color: var(--emerald); margin-bottom: 16px; }
+.hero .subtitle { font-size: 1.12em; color: var(--text-secondary); max-width: 640px; margin: 0 auto 30px; line-height: 1.65; }
 .hero .badge-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 .badge {
   font-size: 0.8em; padding: 4px 14px; border-radius: 20px;
   font-weight: 500; border: 1px solid;
 }
-.badge-local { color: var(--med-green); border-color: #2d5a3f; background: rgba(63,185,80,0.08); }
-.badge-multi  { color: var(--med-purple); border-color: #3d2d5a; background: rgba(163,113,247,0.08); }
-.badge-loop  { color: var(--med-amber); border-color: #5a4520; background: rgba(230,180,80,0.08); }
+.badge-local { color: var(--emerald); border-color: #2d5a3f; background: rgba(63,185,80,0.08); }
+.badge-multi  { color: var(--violet); border-color: #3d2d5a; background: rgba(163,113,247,0.08); }
+.badge-loop  { color: var(--amber); border-color: #5a4520; background: rgba(230,180,80,0.08); }
 
 /* Section styling */
-section { margin: 60px 0; }
+section { margin: 64px 0; }
 .section-label {
   font-size: 0.75em; text-transform: uppercase; letter-spacing: 1.5px;
-  color: var(--med-blue); font-weight: 600; margin-bottom: 8px;
+  color: var(--emerald); font-weight: 600; margin-bottom: 8px;
 }
 section h2 {
   font-family: var(--font-heading);
   font-size: 1.8em; margin-bottom: 12px; letter-spacing: -0.3px;
 }
-.section-intro { color: var(--text-secondary); margin-bottom: 32px; line-height: 1.65; max-width: 680px; }
+.section-intro { color: var(--text-secondary); margin-bottom: 32px; line-height: 1.7; max-width: 680px; font-size: 0.95em; }
 
 /* Architecture diagram */
 .arch-diagram {
@@ -51,27 +98,28 @@ section h2 {
   margin: 32px 0;
   overflow-x: auto;
 }
-.arch-flow { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; min-width: 600px; }
+.arch-flow { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; min-width: 640px; }
 .arch-node {
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: 8px; padding: 16px 20px; text-align: center;
-  min-width: 110px;
+  min-width: 120px;
 }
 .arch-node .n-label { font-weight: 600; font-size: 0.9em; }
 .arch-node .n-sub   { font-size: 0.72em; color: var(--text-muted); margin-top: 2px; }
-.arch-node.primary  { border-color: var(--med-blue); box-shadow: 0 0 0 1px rgba(88,166,255,0.15); }
+.arch-node.primary  { border-color: var(--sky); box-shadow: 0 0 0 1px rgba(88,166,255,0.12); }
 .arch-node.accent   { border-color: var(--accent); }
+.arch-node.green    { border-color: var(--emerald); }
 .arch-arrow { color: var(--text-muted); font-size: 1.4em; flex-shrink: 0; }
 .arch-kb-row {
   display: flex; justify-content: center; gap: 24px; margin-top: 20px;
   padding-top: 20px; border-top: 1px dashed var(--border);
 }
 .arch-kb {
-  background: rgba(63,185,80,0.06); border: 1px dashed #2d5a3f;
-  border-radius: 8px; padding: 12px 20px; text-align: center; min-width: 150px;
+  background: rgba(63,185,80,0.05); border: 1px dashed #2d5a3f;
+  border-radius: 8px; padding: 14px 22px; text-align: center; min-width: 160px;
 }
-.arch-kb .k-label { font-weight: 600; font-size: 0.82em; color: var(--med-green); }
-.arch-kb .k-sub   { font-size: 0.7em; color: var(--text-muted); margin-top: 4px; }
+.arch-kb .k-label { font-weight: 600; font-size: 0.84em; color: var(--emerald); }
+.arch-kb .k-sub   { font-size: 0.72em; color: var(--text-muted); margin-top: 4px; }
 
 /* Agent cards */
 .agent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 28px 0; }
@@ -80,10 +128,10 @@ section h2 {
   background: var(--bg-secondary); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 24px;
 }
-.agent-card .agent-icon { font-size: 1.6em; margin-bottom: 10px; }
+.agent-card .agent-icon { font-size: 1.4em; margin-bottom: 10px; }
 .agent-card .agent-name { font-weight: 700; font-size: 1.05em; margin-bottom: 4px; }
 .agent-card .agent-role { font-size: 0.75em; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 12px; }
-.agent-card .agent-does { font-size: 0.88em; color: var(--text-secondary); line-height: 1.55; }
+.agent-card .agent-does { font-size: 0.88em; color: var(--text-secondary); line-height: 1.6; }
 
 /* Deliberation rounds — timeline */
 .round-list { margin: 28px 0; }
@@ -95,39 +143,39 @@ section h2 {
   flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%;
   background: var(--bg-secondary); border: 2px solid var(--border);
   display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 1.1em;
+  font-weight: 700; font-size: 1em;
 }
-.round-item.active .round-num { border-color: var(--med-blue); background: rgba(88,166,255,0.08); }
+.round-item.active .round-num { border-color: var(--sky); background: rgba(88,166,255,0.06); }
 .round-body { flex: 1; }
 .round-body .r-title { font-weight: 600; margin-bottom: 4px; }
-.round-body .r-desc  { font-size: 0.85em; color: var(--text-secondary); line-height: 1.5; }
+.round-body .r-desc  { font-size: 0.85em; color: var(--text-secondary); line-height: 1.55; }
 .round-body .r-agents { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
 .r-agents span {
   font-size: 0.7em; padding: 2px 10px; border-radius: 12px;
   border: 1px solid var(--border); color: var(--text-secondary);
 }
 
-/* Divergence flow */
+/* Divergence box */
 .diverge-box {
-  background: rgba(230,180,80,0.05); border: 1px solid #5a4520;
+  background: rgba(230,180,80,0.04); border: 1px solid #5a4520;
   border-radius: var(--radius); padding: 20px 24px; margin: 24px 0;
-  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  display: flex; align-items: flex-start; gap: 14px; flex-wrap: wrap;
 }
-.diverge-box .dv-label { font-weight: 700; color: var(--med-amber); font-size: 0.9em; white-space: nowrap; }
-.diverge-box .dv-flow  { color: var(--text-secondary); font-size: 0.85em; line-height: 1.5; }
+.diverge-box .dv-label { font-weight: 700; color: var(--amber); font-size: 0.9em; white-space: nowrap; }
+.diverge-box .dv-flow  { color: var(--text-secondary); font-size: 0.85em; line-height: 1.6; }
 
 /* Report structure */
 .report-structure {
   background: var(--bg-secondary); border: 1px solid var(--border);
   border-radius: var(--radius); overflow: hidden; margin: 28px 0;
 }
-.report-block { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+.report-block { padding: 22px 24px; border-bottom: 1px solid var(--border); }
 .report-block:last-child { border-bottom: none; }
 .report-block .rb-head { font-weight: 700; font-size: 0.9em; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
 .report-block .rb-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-.report-block .rb-content { font-size: 0.84em; color: var(--text-secondary); line-height: 1.55; }
-.report-block.warn { background: rgba(248,81,73,0.04); }
-.report-block.flag { background: rgba(230,180,80,0.04); }
+.report-block .rb-content { font-size: 0.85em; color: var(--text-secondary); line-height: 1.65; }
+.report-block.warn { background: rgba(248,81,73,0.03); }
+.report-block.flag { background: rgba(230,180,80,0.03); }
 
 /* Feedback loop */
 .feedback-flow {
@@ -150,20 +198,9 @@ section h2 {
 }
 .fb-body { flex: 1; }
 .fb-body .fb-title { font-weight: 600; font-size: 0.95em; margin-bottom: 4px; }
-.fb-body .fb-desc  { font-size: 0.84em; color: var(--text-secondary); line-height: 1.5; }
-.fb-step.fb-highlight .fb-icon { border-color: var(--med-green); background: rgba(63,185,80,0.08); }
-.fb-step.fb-highlight .fb-title { color: var(--med-green); }
-
-/* Code block styling */
-.code-block {
-  background: #0d1117; border: 1px solid var(--border);
-  border-radius: 6px; padding: 16px 20px; margin: 16px 0;
-  font-family: "SF Mono", "Fira Code", monospace; font-size: 0.82em;
-  line-height: 1.65; overflow-x: auto; color: #c9d1d9;
-}
-.code-block .c-key { color: var(--med-blue); }
-.code-block .c-val { color: var(--med-amber); }
-.code-block .c-com { color: #6e7681; }
+.fb-body .fb-desc  { font-size: 0.84em; color: var(--text-secondary); line-height: 1.55; }
+.fb-step.fb-highlight .fb-icon { border-color: var(--emerald); background: rgba(63,185,80,0.06); }
+.fb-step.fb-highlight .fb-title { color: var(--emerald); }
 
 /* Comparison table */
 .comp-table { width: 100%; margin: 28px 0; border-collapse: collapse; font-size: 0.88em; }
@@ -173,7 +210,7 @@ section h2 {
 }
 .comp-table td {
   padding: 12px 16px; border-bottom: 1px solid var(--border);
-  color: var(--text-secondary); vertical-align: top; line-height: 1.5;
+  color: var(--text-secondary); vertical-align: top; line-height: 1.55;
 }
 .comp-table tr td:first-child { color: var(--text-primary); font-weight: 500; }
 
@@ -187,23 +224,35 @@ section h2 {
 .phase-card .ph-num { font-size: 2em; font-weight: 800; color: var(--border); margin-bottom: 8px; }
 .phase-card .ph-title { font-weight: 700; font-size: 0.9em; margin-bottom: 4px; }
 .phase-card .ph-time { font-size: 0.72em; color: var(--text-muted); margin-bottom: 10px; }
-.phase-card .ph-desc  { font-size: 0.78em; color: var(--text-secondary); line-height: 1.5; }
+.phase-card .ph-desc  { font-size: 0.78em; color: var(--text-secondary); line-height: 1.55; }
+
+/* Empty state note */
+.note-box {
+  background: rgba(88,166,255,0.04); border: 1px solid #1f3d5a;
+  border-radius: var(--radius); padding: 16px 20px; margin: 20px 0;
+  font-size: 0.84em; color: var(--text-secondary); line-height: 1.55;
+}
 
 /* Footer */
 .page-footer {
   margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--border);
   color: var(--text-muted); font-size: 0.78em; text-align: center; line-height: 1.6;
 }
+
+/* Chinese typography tweaks */
+html[lang="zh-CN"] body { letter-spacing: 0.02em; }
 </style>
 </head>
 <body>
 
 <nav class="top-nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">GP Articles<span>Training Corpus</span></a>
+    <a href="#" class="nav-logo">Emagene<span>长寿疗法诊所</span></a>
     <div class="nav-links">
-      <a href="index.html">Articles</a>
-      <a href="hospital-ai.html" style="color:var(--accent-bright)">MedMulti</a>
+      <a href="#">系统设计</a>
+      <a href="#">思考引擎</a>
+      <a href="#">诊断报告</a>
+      <a href="#">持续学习</a>
     </div>
   </div>
 </nav>
@@ -214,17 +263,16 @@ section h2 {
 <!-- HERO -->
 <!-- ═══════════════════════════════════════════ -->
 <section class="hero">
-  <h1>MedMulti</h1>
+  <h1>Emagene 智能诊断系统</h1>
+  <p class="tagline">长寿疗法 · 专有智能</p>
   <p class="subtitle">
-    A multi-agent diagnostic support system for private hospitals.
-    Runs entirely on local infrastructure with open-source models.
-    Thinks by structured disagreement between specialist agents,
-    learns continuously from every doctor's feedback.
+    Emagene 专有智能诊断系统。多专家协作推理，每个诊断经过结构化辩论与证据核查。
+    所有患者数据保留在诊所本地，持续从每一次医生反馈中学习进化。
   </p>
   <div class="badge-row">
-    <span class="badge badge-local">Local Deployment</span>
-    <span class="badge badge-multi">Multi-Agent</span>
-    <span class="badge badge-loop">Continuous Learning</span>
+    <span class="badge badge-local">本地部署 · 数据不外传</span>
+    <span class="badge badge-multi">多专家协作推理</span>
+    <span class="badge badge-loop">持续学习进化</span>
   </div>
 </section>
 
@@ -232,185 +280,198 @@ section h2 {
 <!-- 1. SYSTEM DESIGN -->
 <!-- ═══════════════════════════════════════════ -->
 <section>
-  <div class="section-label">Part 1</div>
-  <h2>System Design</h2>
+  <div class="section-label">第一部分</div>
+  <h2>系统设计理念</h2>
   <p class="section-intro">
-    A single LLM call is not enough for medical diagnosis. The system emulates a team of doctors
-    conferring on a difficult case — generating, challenging, and refining the diagnosis across
-    multiple rounds before producing a report. All inference runs locally on open-source models;
-    only the public knowledge base queries cross the network boundary.
+    一个诊断不是一句话的结论，而是一个需要被质疑、被验证、被修正的<strong>推理过程</strong>。
+    系统模拟多位资深医师联合会诊的方式——有人提出诊断、有人专门挑战、有人核查证据、
+    有人综合所有意见形成最终报告。所有推理在诊所本地的模型上运行。
+  </p>
+
+  <p style="color:var(--text-secondary);font-size:0.92em;line-height:1.7;margin-bottom:28px;">
+    我们希望系统建立的，是一种医学领域最缺乏的能力：在还未出错之前就<strong>看见自己可能出错的地方</strong>。
+    这要求系统内部不同角色的推理执行共同进行互相的挑战和检验，在分歧中寻找所有可能存在的视野差异。
   </p>
 
   <div class="arch-diagram">
     <div class="arch-flow">
-      <div class="arch-node primary">
-        <div class="n-label">Symptom Input</div>
-        <div class="n-sub">patient data + context</div>
+      <div class="arch-node green">
+        <div class="n-label">患者信息输入</div>
+        <div class="n-sub">症状 · 体征 · 病史 · 检测指标</div>
       </div>
       <div class="arch-arrow">→</div>
       <div class="arch-node primary">
-        <div class="n-label">Multi-Agent Engine</div>
-        <div class="n-sub">4 agents deliberating</div>
+        <div class="n-label">多专家推理引擎</div>
+        <div class="n-sub">四个角色协作诊断</div>
       </div>
       <div class="arch-arrow">→</div>
       <div class="arch-node primary">
-        <div class="n-label">Diagnosis Report</div>
-        <div class="n-sub">structured output</div>
+        <div class="n-label">诊断报告</div>
+        <div class="n-sub">含推理过程与证据链</div>
       </div>
       <div class="arch-arrow">→</div>
       <div class="arch-node accent">
-        <div class="n-label">Doctor Review</div>
-        <div class="n-sub">confirm / correct / refine</div>
+        <div class="n-label">医师审阅</div>
+        <div class="n-sub">确认 · 修正 · 补充</div>
       </div>
     </div>
     <div class="arch-kb-row">
       <div class="arch-kb">
-        <div class="k-label">Internal KB</div>
-        <div class="k-sub">protocols · case history · formulary</div>
+        <div class="k-label">Emagene 内部知识库</div>
+        <div class="k-sub">诊所方案 · 历史案例 · 长寿疗法经验</div>
       </div>
       <div class="arch-kb" style="background:rgba(88,166,255,0.05);border-color:#1f3d5a;">
-        <div class="k-label" style="color:var(--med-blue)">Public KB</div>
-        <div class="k-sub">guidelines · literature · drug DB</div>
+        <div class="k-label" style="color:var(--sky)">公共医学知识库</div>
+        <div class="k-sub">临床指南 · 研究文献 · 药物数据</div>
       </div>
       <div class="arch-kb" style="background:rgba(163,113,247,0.05);border-color:#3d2d5a;">
-        <div class="k-label" style="color:var(--med-purple)">Feedback → DPO</div>
-        <div class="k-sub">preference pairs · KB enrichment</div>
+        <div class="k-label" style="color:var(--violet)">反馈 → 学习进化</div>
+        <div class="k-sub">医师反馈 · 案例积累 · 方案优化</div>
       </div>
     </div>
   </div>
 
-  <h3 style="font-size:1.15em;margin-top:36px;margin-bottom:12px;">Deployment Model</h3>
+  <h3 style="font-size:1.15em;margin-top:36px;margin-bottom:12px;">系统部署方式</h3>
   <table class="comp-table">
-    <tr><th>Component</th><th>Location</th><th>Rationale</th></tr>
+    <tr><th>组件</th><th>部署位置</th><th>原因</th></tr>
     <tr>
-      <td>LLM (open-source)</td>
-      <td>Local GPU server</td>
-      <td>Patient data never leaves the hospital network</td>
+      <td>诊断大语言模型</td>
+      <td>诊所本地服务器</td>
+      <td>患者数据完全不离开诊所网络</td>
     </tr>
     <tr>
-      <td>Internal KB (vector DB + SQL)</td>
-      <td>Local server</td>
-      <td>Proprietary protocols, case history</td>
+      <td>Emagene 内部知识库</td>
+      <td>诊所本地服务器</td>
+      <td>自有长寿疗法方案、历史案例为专有资产</td>
     </tr>
     <tr>
-      <td>Public KB (PubMed, guidelines)</td>
-      <td>Remote (API / cached mirror)</td>
-      <td>Up-to-date medical literature</td>
+      <td>公共医学知识库</td>
+      <td>外部（API 访问 / 本地镜像）</td>
+      <td>获取最新临床指南与研究文献</td>
     </tr>
     <tr>
-      <td>Multi-agent orchestration</td>
-      <td>Local server</td>
-      <td>Coordinates agents, manages deliberation state</td>
+      <td>多专家协作调度层</td>
+      <td>诊所本地服务器</td>
+      <td>管理推理辩论过程与状态</td>
     </tr>
     <tr>
-      <td>Feedback store + DPO pipeline</td>
-      <td>Local server</td>
-      <td>Doctor feedback is also sensitive data</td>
+      <td>医师反馈与学习系统</td>
+      <td>诊所本地服务器</td>
+      <td>反馈数据同样属于敏感信息</td>
     </tr>
   </table>
+
+  <div class="note-box">
+    <strong>隐私设计原则：</strong>Emagene 系统仅在与外部医学知识库同步时向外部发送查询请求，
+    且查询内容不含患者身份信息。所有患者数据、诊断记录、医师反馈均在诊所本地环境内闭环运行。
+    大语言模型部署在本地，不依赖任何外部推理服务。
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════════ -->
 <!-- 2. MULTI-AGENT THINKING LOOP -->
 <!-- ═══════════════════════════════════════════ -->
 <section>
-  <div class="section-label">Part 2</div>
-  <h2>The Thinking Loop — Multi-Agent Deliberation</h2>
+  <div class="section-label">第二部分</div>
+  <h2>多角色协作推理引擎</h2>
   <p class="section-intro">
-    The core insight: <strong>a model cannot see its own blind spots.</strong>
-    Four specialist agents engage in structured rounds of proposal, challenge,
-    evidence audit, and synthesis. Disagreements are surfaced, not hidden.
+    核心洞察：<strong>一个独立的推理者无法看见自己的盲区。</strong>
+    就像一位医师单独诊断时容易陷入思维惯性，单次推理也无法自我纠正。
+    系统设置四个专业角色，在结构化的对话轮次中：提议 → 挑战 → 核查 → 综合。
+    分歧被主动呈现，而不是在结论中被掩盖。
   </p>
 
   <!-- Agent roles -->
   <div class="agent-grid">
     <div class="agent-card">
       <div class="agent-icon">🩺</div>
-      <div class="agent-name">Primary Diagnostician</div>
-      <div class="agent-role">Generates and defends</div>
+      <div class="agent-name">主诊推理师</div>
+      <div class="agent-role">提出诊断假设 · 阐述推理</div>
       <div class="agent-does">
-        Produces the initial differential diagnosis with full reasoning chain
-        and explicit assumptions. Iterates based on peer challenges in subsequent rounds.
+        基于患者信息生成初步诊断与鉴别诊断列表，完整阐述推理链条，
+        <strong>明确指出推理过程中所做的每一项假设</strong>。
+        在后续轮次中根据其他角色的挑战修正自己的判断。
       </div>
     </div>
     <div class="agent-card">
       <div class="agent-icon">⚔️</div>
-      <div class="agent-name">Devil's Advocate</div>
-      <div class="agent-role">Challenges constructively</div>
+      <div class="agent-name">挑战方</div>
+      <div class="agent-role">寻找漏洞 · 提出替代解释</div>
       <div class="agent-does">
-        Must find at least 2 challenges. Identifies missing evidence, alternative explanations,
-        and cognitive biases (anchoring, confirmation, availability).
+        唯一任务是<strong>建设性质疑</strong>。必须提出至少两项与主诊不同的观点。
+        寻找被遗漏的可能、被忽略的证据、潜在的认知偏差。
+        如同一位经验丰富的同事说："你有没有考虑过另一种可能？"
       </div>
     </div>
     <div class="agent-card">
       <div class="agent-icon">📚</div>
-      <div class="agent-name">Evidence Reviewer</div>
-      <div class="agent-role">Cross-references claims</div>
+      <div class="agent-name">证据核查员</div>
+      <div class="agent-role">逐条验证 · 查阅文献</div>
       <div class="agent-does">
-        Audits every diagnostic claim against both knowledge bases.
-        Labels each claim: <em>supported</em>, <em>partially supported</em>, or <em>unsupported</em>.
-        Retrieves relevant guidelines and case studies.
+        将诊断中的每一条关键主张与知识库中的内容一一对照。
+        对每条主张给出判断：有文献支持 / 部分支持 / 缺乏依据。
+        调取相关临床指南、研究数据和历史案例。
       </div>
     </div>
     <div class="agent-card">
       <div class="agent-icon">📋</div>
-      <div class="agent-name">Synthesizer</div>
-      <div class="agent-role">Integrates and reports</div>
+      <div class="agent-name">综合报告员</div>
+      <div class="agent-role">整合观点 · 生成最终报告</div>
       <div class="agent-does">
-        Combines all perspectives into a consensus report.
-        Preserves unresolved disagreements prominently.
-        Produces the structured final output.
+        汇总所有角色的观点，生成结构化诊断报告。
+        <strong>保留未能解决的分歧</strong>，不强行统一。
+        将推理过程中的所有假设和不确定性明确列出。
       </div>
     </div>
   </div>
 
   <!-- Deliberation rounds timeline -->
-  <h3 style="font-size:1.15em;margin-top:36px;margin-bottom:8px;">Deliberation Protocol</h3>
+  <h3 style="font-size:1.15em;margin-top:36px;margin-bottom:8px;">推理协作流程</h3>
   <div class="round-list">
     <div class="round-item active">
       <div class="round-num">R1</div>
       <div class="round-body">
-        <div class="r-title">Generate — Primary Diagnostician</div>
-        <div class="r-desc">Produces differential diagnosis with full reasoning chain and explicitly states every assumption it is making about the patient, the symptoms, and the evidence.</div>
-        <div class="r-agents"><span>Primary Diagnostician</span></div>
+        <div class="r-title">提出诊断假设 — 主诊推理师</div>
+        <div class="r-desc">综合患者信息，生成鉴别诊断列表，完整阐述推理过程，并明确指出推理中所依赖的每一项假设（如"假设患者的某项指标处于正常范围""假设家族病史信息完整"等）。</div>
+        <div class="r-agents"><span>主诊推理师</span></div>
       </div>
     </div>
     <div class="round-item active">
       <div class="round-num">R2</div>
       <div class="round-body">
-        <div class="r-title">Challenge & Audit — Devil's Advocate + Evidence Reviewer</div>
-        <div class="r-desc">Devil's Advocate identifies weaknesses, alternative hypotheses, and potential biases. Evidence Reviewer cross-references every claim against both KBs and assigns support levels. Both run in parallel.</div>
-        <div class="r-agents"><span>Devil's Advocate</span><span>Evidence Reviewer</span></div>
+        <div class="r-title">挑战与核查 — 挑战方 + 证据核查员（并行）</div>
+        <div class="r-desc">挑战方识别诊断中的薄弱环节、被忽略的替代假设、潜在的认知偏差。证据核查员将每一项论断与知识库对照，标注证据支持程度。两者同时工作，互不影响。</div>
+        <div class="r-agents"><span>挑战方</span><span>证据核查员</span></div>
       </div>
     </div>
     <div class="round-item active">
       <div class="round-num">R3</div>
       <div class="round-body">
-        <div class="r-title">Revise — Primary Diagnostician</div>
-        <div class="r-desc">Addresses every challenge. Refines diagnosis, adjusts confidence, incorporates evidence audit. If a challenge is valid, the diagnosis changes. If not, explains why the challenge does not apply.</div>
-        <div class="r-agents"><span>Primary Diagnostician</span></div>
+        <div class="r-title">修正诊断 — 主诊推理师</div>
+        <div class="r-desc">逐条回应挑战方的质疑和证据核查员的发现。有道理的挑战 → 修正诊断；有说服力的新证据 → 调整判断；不成立的挑战 → 解释原因。这是一个真正面对批评并改进的过程。</div>
+        <div class="r-agents"><span>主诊推理师</span></div>
       </div>
     </div>
     <div class="round-item active">
       <div class="round-num">R4</div>
       <div class="round-body">
-        <div class="r-title">Synthesize — Synthesizer</div>
-        <div class="r-desc">Integrates all perspectives into the final report. Preserves disagreements that could not be resolved. Outputs the structured diagnosis report ready for doctor review.</div>
-        <div class="r-agents"><span>Synthesizer</span></div>
+        <div class="r-title">综合报告 — 综合报告员</div>
+        <div class="r-desc">汇总所有观点、证据、修正过程，生成完整的结构化诊断报告。未能达成共识的分歧以同等权重呈现，所有假设列表附于报告末尾，供医师审阅时逐一核查。</div>
+        <div class="r-agents"><span>综合报告员</span></div>
       </div>
     </div>
   </div>
 
   <!-- Divergence handling -->
   <div class="diverge-box">
-    <div class="dv-label">↻ Divergence Handling</div>
+    <div class="dv-label">分歧处理机制</div>
     <div class="dv-flow">
-      <strong>Convergence → early exit.</strong> If the Devil's Advocate and Primary Diagnostician
-      reach agreement (scored by an agreement metric), the loop exits after R3 and skips directly
-      to synthesis.<br>
-      <strong>Divergence → extra rounds.</strong> If disagreement exceeds threshold, additional
-      R2–R3 cycles are triggered, each with deeper evidence retrieval and sharper challenge framing.
-      The system will not produce a report until either convergence or a maximum round limit (6) is hit.
+      <strong>达成共识 → 提前完成。</strong>
+      如果主诊推理师与挑战方在 R3 之后基本达成一致，则跳过剩余轮次，直接进入综合报告阶段。<br><br>
+      <strong>持续分歧 → 增加轮次。</strong>
+      如果双方在关键诊断上存在重大分歧，系统会触发额外的辩论轮次（最多再增加两轮），
+      每轮伴随更深度的文献检索和更锐利的挑战框架。系统<strong>不会在分歧未解决时强行给出唯一结论</strong>——
+      分歧本身就是报告的重要组成部分。
     </div>
   </div>
 </section>
@@ -419,88 +480,89 @@ section h2 {
 <!-- 3. REPORT OUTPUT -->
 <!-- ═══════════════════════════════════════════ -->
 <section>
-  <div class="section-label">Part 3</div>
-  <h2>Diagnosis Report Output</h2>
+  <div class="section-label">第三部分</div>
+  <h2>诊断报告输出结构</h2>
   <p class="section-intro">
-    The report is not a single answer — it is a structured document that shows the reasoning,
-    the evidence, the assumptions, and most importantly, <strong>what the system is unsure about.</strong>
-    This is what makes it safe for clinical use.
+    报告不是给出一个答案，而是一份完整的结构化文档，呈现推理过程、证据来源、
+    所做的假设，以及最重要的——<strong>系统不确定的地方是什么</strong>。
+    这正是其在临床环境中安全使用的关键。
   </p>
 
   <div class="report-structure">
     <div class="report-block">
       <div class="rb-head">
-        <span class="rb-dot" style="background:var(--med-blue)"></span> Primary Diagnosis
+        <span class="rb-dot" style="background:var(--sky)"></span> 主要诊断
       </div>
       <div class="rb-content">
-        <strong>Condition:</strong> Community-acquired pneumonia (right lower lobe)<br>
-        <strong>Confidence:</strong> 0.82 — supported by fever + cough + right basilar crackles + opacity on CXR<br>
-        <strong>Supporting evidence:</strong> 4 findings matched · 2 guideline references · 3 similar cases in hospital history<br>
-        <strong>Missing evidence:</strong> Sputum culture pending; atypical pathogen panel not yet ordered
+        <strong>判断：</strong>慢性低度炎症综合征（与代谢衰老相关的系统性炎症状态）<br>
+        <strong>置信度：</strong>较高 — 综合支持：CRP 持续偏高 + IL-6 升高 + 空腹胰岛素偏高 + 腹部脂肪分布<br>
+        <strong>支持来源：</strong>4 项检测指标一致 · 2 项临床指南 · 诊所历史案例中 3 例相似模式<br>
+        <strong>待确认：</strong>尚未进行氧化应激标志物检测；端粒长度数据缺失
       </div>
     </div>
 
     <div class="report-block">
       <div class="rb-head">
-        <span class="rb-dot" style="background:var(--med-amber)"></span> Differential Diagnosis
+        <span class="rb-dot" style="background:var(--amber)"></span> 鉴别诊断
       </div>
       <div class="rb-content">
-        <strong>1. Pulmonary embolism</strong> — confidence 0.21<br>
-        &nbsp;&nbsp;Why ruled out: No risk factors (no recent surgery, no DVT signs, Wells score = 2). D-dimer would resolve.<br>
-        <strong>2. Bronchitis (acute)</strong> — confidence 0.15<br>
-        &nbsp;&nbsp;Why ruled out: CXR shows focal consolidation inconsistent with bronchitis alone.
+        <strong>1. 早期甲状腺功能减退</strong> — 可能性较低<br>
+        &nbsp;&nbsp;为什么基本排除：TSH 正常、游离 T3/T4 正常范围。仅有疲劳主诉不足以支持。<br>
+        <strong>2. 肾上腺疲劳综合征</strong> — 可能性中等<br>
+        &nbsp;&nbsp;为什么保留：皮质醇节律未检测，且患者自述长期高压力+睡眠质量差。建议检测以确认或排除。
       </div>
     </div>
 
     <div class="report-block warn">
       <div class="rb-head">
-        <span class="rb-dot" style="background:var(--med-red)"></span> Unresolved Disagreements
+        <span class="rb-dot" style="background:var(--rose)"></span> 未解决的分歧（请重点关注）
       </div>
       <div class="rb-content">
-        <strong>Disagreement:</strong> Devil's Advocate argues the opacity could be an early mass, not infection.<br>
-        <strong>Primary Diagnostician position:</strong> Clinical picture (acute fever, productive cough) strongly favors infection.<br>
-        <strong>Devil's Advocate position:</strong> Patient is a 30-pack-year smoker; malignancy must be in differential.<br>
-        <strong>Recommendation:</strong> Repeat CXR in 6 weeks after treatment. If opacity persists, order CT chest.
+        <strong>分歧点：</strong>挑战方认为慢性炎症可能只是表象，根本原因可能是肠道菌群失调。<br>
+        <strong>主诊推理师的立场：</strong>炎症指标与代谢指标高度相关，代谢衰老模型更直接地解释当前全部数据。<br>
+        <strong>挑战方的立场：</strong>患者有间歇性腹胀史 + 近期抗生素使用（6个月前），肠道通透性增加
+        可以解释慢性低度炎症，且代谢指标异常可能是肠源性问题导致的结果而非原因。<br>
+        <strong>建议：</strong>增加肠道菌群分析 + 连蛋白检测。若连蛋白升高，需将肠道修复纳入治疗方案。
       </div>
     </div>
 
     <div class="report-block">
       <div class="rb-head">
-        <span class="rb-dot" style="background:var(--med-green)"></span> Recommended Next Steps
+        <span class="rb-dot" style="background:var(--emerald)"></span> 建议后续措施
       </div>
       <div class="rb-content">
-        <strong>Tests:</strong> CBC with diff · Sputum culture + gram stain · Blood cultures ×2 · D-dimer (per disagreement)<br>
-        <strong>Treatment:</strong> Start empiric antibiotics per hospital CAP protocol (ceftriaxone + azithromycin)<br>
-        <strong>Referrals:</strong> None required at this stage<br>
-        <strong>Urgency:</strong> <span style="color:var(--med-amber)">Urgent</span> — admit for IV antibiotics
+        <strong>检测建议：</strong>氧化应激全套 · 皮质醇节律（4点唾液） · 肠道菌群分析 · 连蛋白检测<br>
+        <strong>干预方向：</strong>抗炎饮食方案 · 有氧+抗阻运动组合 · 睡眠优化方案 · 后续视肠道检测结果决定是否加入肠道修复<br>
+        <strong>转诊建议：</strong>暂不需要<br>
+        <strong>紧急程度：</strong><span style="color:var(--emerald)">常规</span> — 慢性管理路径
       </div>
     </div>
 
     <div class="report-block flag">
       <div class="rb-head">
-        <span class="rb-dot" style="background:var(--med-amber)"></span> Assumptions Made
+        <span class="rb-dot" style="background:var(--amber)"></span> 本报告所做的假设
       </div>
       <div class="rb-content">
-        1. Patient has no antibiotic allergies (not documented in chart)<br>
-        2. The CXR opacity is acute, not chronic (no prior imaging for comparison)<br>
-        3. Patient can tolerate oral intake for antibiotic step-down
+        1. 患者自述"饮食均衡"——但缺乏详细饮食日志，实际营养摄入可能偏离患者认知<br>
+        2. 近期无急性感染——未进行急性期反应蛋白细分检测<br>
+        3. 患者未服用影响炎症指标的药物（如 NSAIDs、他汀类药物）——需确认
       </div>
     </div>
 
     <div class="report-block">
       <div class="rb-head" style="margin-bottom:0;">
-        <span class="rb-dot" style="background:var(--text-muted)"></span> Sources Cited
+        <span class="rb-dot" style="background:var(--text-muted)"></span> 参考资料
       </div>
       <div class="rb-content" style="font-size:0.78em;">
-        IDSA/ATS 2019 CAP Guidelines · Hospital CAP Protocol v3.2 · 3 similar cases from internal KB (anonymized: #1247, #1301, #1312)
+        Franceschi et al. (2018) "Inflammaging" 综述 · 诊所长寿抗炎方案 v2.1 · 内部类似案例（匿名：#A031, #A078, #A112）
       </div>
     </div>
   </div>
 
   <p style="font-size:0.82em;color:var(--text-muted);margin-top:12px;">
-    The <strong>Unresolved Disagreements</strong> and <strong>Assumptions Made</strong> sections are the
-    most important safety features. They tell the doctor: "Here is what we are unsure about, and here
-    is what we assumed — please verify."
+    <strong>"未解决的分歧"</strong>和<strong>"所做的假设"</strong>是报告中最重要的安全机制。
+    它们告诉医师的不是"系统认为是什么"，而是"系统在哪些地方不确定，以及为什么"——
+    这正是医师需要重点审阅和判断的地方。
   </p>
 </section>
 
@@ -508,168 +570,156 @@ section h2 {
 <!-- 4. CONTINUOUS LEARNING -->
 <!-- ═══════════════════════════════════════════ -->
 <section>
-  <div class="section-label">Part 4</div>
-  <h2>Continuous Learning — Feedback as Training Data</h2>
+  <div class="section-label">第四部分</div>
+  <h2>持续学习 — 每一次反馈都在让系统进化</h2>
   <p class="section-intro">
-    Every doctor interaction is a learning signal. The system treats feedback not as an annotation
-    but as <strong>training data</strong>. It flows into three improvement pathways simultaneously.
+    医师的每一次审阅不只是一次质量把关，更是<strong>系统学习的原材料</strong>。
+    当一个医师说"这个诊断不对"或"这个思路更好"的时候，系统不只是修改这一次的结果——
+    而是将这次修正内化，使下一次面对类似情况时能给出更准确的判断。
   </p>
 
-  <!-- Feedback types -->
-  <h3 style="font-size:1.15em;margin-top:28px;margin-bottom:12px;">Four Feedback Actions</h3>
+  <!-- Four feedback actions -->
+  <h3 style="font-size:1.15em;margin-top:28px;margin-bottom:12px;">四种反馈方式</h3>
   <div class="agent-grid">
     <div class="agent-card">
-      <div class="agent-name" style="color:var(--med-green)">✓ Confirm</div>
+      <div class="agent-name" style="color:var(--emerald)">✓ 确认诊断</div>
       <div class="agent-does" style="margin-top:6px;">
-        Diagnosis is correct. Stored as a positive example. Increases the case weight
-        for similar presentations in future retrievals.
+        诊断正确。系统将此案例保存为正面参考。未来遇到相似情况时，
+        这个案例将作为支持依据被检索到，增强类似判断的置信度。
       </div>
     </div>
     <div class="agent-card">
-      <div class="agent-name" style="color:var(--med-red)">✗ Correct</div>
+      <div class="agent-name" style="color:var(--rose)">✗ 修正诊断</div>
       <div class="agent-does" style="margin-top:6px;">
-        Diagnosis is wrong. Doctor provides the correct diagnosis + reasoning.
-        Creates a DPO preference pair: doctor's answer > system's answer.
+        诊断错误。医师给出正确诊断及推理依据。
+        系统将此记录为"医师判断优于系统判断"的对比学习样本，
+        用于调整模型在类似情况下的判断方向。
       </div>
     </div>
     <div class="agent-card">
-      <div class="agent-name" style="color:var(--med-amber)">↻ Refine</div>
+      <div class="agent-name" style="color:var(--amber)">↻ 优化推理</div>
       <div class="agent-does" style="margin-top:6px;">
-        Diagnosis is correct but reasoning path was suboptimal.
-        Doctor provides the better reasoning chain. Also creates a DPO pair.
+        诊断结论正确，但推理路径不够好或遗漏了关键依据。
+        医师补充更优的推理逻辑。系统同样将其记录为学习样本，
+        用于改善推理质量而非仅仅改善结论准确性。
       </div>
     </div>
     <div class="agent-card">
-      <div class="agent-name" style="color:var(--med-purple)">+ Add Evidence</div>
+      <div class="agent-name" style="color:var(--violet)">+ 补充证据</div>
       <div class="agent-does" style="margin-top:6px;">
-        Doctor flags evidence the system missed. That evidence source is indexed
-        and added to the KB for future retrievals.
+        医师指出系统未掌握的证据（如新文献、新方案、特定领域的研究）。
+        该证据被纳入诊所知识库，未来遇到相关问题时会被自动检索和使用。
       </div>
     </div>
   </div>
 
-  <!-- The three pathways -->
-  <h3 style="font-size:1.15em;margin-top:36px;margin-bottom:12px;">Three Improvement Pathways</h3>
+  <!-- Three pathways -->
+  <h3 style="font-size:1.15em;margin-top:36px;margin-bottom:12px;">反馈走向三条进化路径</h3>
   <div class="feedback-flow">
     <div class="fb-step fb-highlight">
       <div class="fb-icon">1</div>
       <div class="fb-body">
-        <div class="fb-title">Preference Pairs → DPO Model Alignment</div>
+        <div class="fb-title">诊断判断力的持续校准</div>
         <div class="fb-desc">
-          Corrections and refinements generate pairwise preferences: <em>doctor's answer > system's answer</em>.
-          Direct Preference Optimization (DPO) is applied periodically (weekly/monthly) to align the model
-          with accumulated clinical judgment. DPO is chosen over RLHF because it is simpler, more stable,
-          and works directly with explicit pairwise preferences without needing a separate reward model.
+          每一次"修正诊断"和"优化推理"的反馈，都形成一对对比样本：<em>医师的判断 vs 系统原先的判断</em>。
+          当此类样本累积到一定数量后，系统会自动调整内部判断权重，使模型在类似情况下的推理方向
+          更接近医师的专业判断。这个过程是渐进的、可追溯的——每一次调整都有对应的反馈记录作为依据。
         </div>
       </div>
     </div>
     <div class="fb-step fb-highlight">
       <div class="fb-icon">2</div>
       <div class="fb-body">
-        <div class="fb-title">KB Enrichment</div>
+        <div class="fb-title">诊所知识库的自动扩充</div>
         <div class="fb-desc">
-          Every corrected case is anonymized and added to the Internal KB case history —
-          the single most valuable data source for future diagnoses.
-          Doctor-provided reasoning is stored as expert annotation on the case.
-          Missing evidence flagged by doctors is indexed and linked.
+          每一个经过医师确认或修正的案例，在匿名化处理后自动归入诊所内部案例库——
+          这是未来诊断中最有价值的参考资料来源。
+          医师的推理注释作为专家标注随案例一起存储。
+          被医师指出的遗漏证据源被索引并关联到相关诊断场景。
         </div>
       </div>
     </div>
     <div class="fb-step fb-highlight">
       <div class="fb-icon">3</div>
       <div class="fb-body">
-        <div class="fb-title">Protocol Evolution Signals</div>
+        <div class="fb-title">诊所方案体系的持续演进</div>
         <div class="fb-desc">
-          When doctors consistently override the system for a specific condition,
-          the pattern is flagged for protocol review. This closes the loop between
-          the AI system and the hospital's own evolving clinical practice.
+          当多位医师在某一类诊断上持续地、一致地修正系统的判断，
+          这个信号会被标记出来——它可能意味着诊所自身的最佳实践在进化，
+          或者该领域的医学认知已经更新。这将触发对诊所内部方案的复核和更新，
+          使 Emagene 的长寿疗法体系始终与临床实践和医学进步同步。
         </div>
       </div>
     </div>
   </div>
-
-  <h3 style="font-size:1.15em;margin-top:28px;margin-bottom:8px;">Why DPO (Not RLHF)</h3>
-  <table class="comp-table">
-    <tr><th>Property</th><th>RLHF</th><th>DPO</th></tr>
-    <tr>
-      <td>Requires reward model</td><td>Yes — separate model to train</td><td>No — optimizes preferences directly</td>
-    </tr>
-    <tr>
-      <td>Training stability</td><td>Fragile; needs careful reward hacking mitigation</td><td>Stable; simple cross-entropy-like loss</td>
-    </tr>
-    <tr>
-      <td>Data requirement</td><td>Preference pairs + reward model training</td><td>Preference pairs only</td>
-    </tr>
-    <tr>
-      <td>Fit for small-batch updates</td><td>Poor — reward model needs large data</td><td>Good — works with accumulated batches</td>
-    </tr>
-  </table>
 </section>
 
 <!-- ═══════════════════════════════════════════ -->
-<!-- SAFETY & IMPLEMENTATION -->
+<!-- IMPLEMENTATION -->
 <!-- ═══════════════════════════════════════════ -->
 <section>
-  <div class="section-label">Implementation</div>
-  <h2>Rollout Phases</h2>
+  <div class="section-label">实施路线</div>
+  <h2>分阶段落地路径</h2>
   <div class="phase-grid">
     <div class="phase-card">
       <div class="ph-num">1</div>
-      <div class="ph-title">Single-Agent + RAG</div>
-      <div class="ph-time">Weeks 1–2</div>
-      <div class="ph-desc">Basic RAG over both KBs. Single LLM with CoT reasoning. Structured report output. Feedback capture.</div>
+      <div class="ph-title">单推理 + 知识库</div>
+      <div class="ph-time">第 1–2 周</div>
+      <div class="ph-desc">基础系统搭建：单一推理模型接入内外部知识库，输出结构化报告，支持医师反馈记录。</div>
     </div>
     <div class="phase-card">
       <div class="ph-num">2</div>
-      <div class="ph-title">Multi-Agent</div>
-      <div class="ph-time">Weeks 3–4</div>
-      <div class="ph-desc">Add Devil's Advocate + Evidence Reviewer. Round-based deliberation protocol. Early exit logic.</div>
+      <div class="ph-title">多角色协作</div>
+      <div class="ph-time">第 3–4 周</div>
+      <div class="ph-desc">加入挑战方与证据核查员角色，启用多轮辩论协作流程，实施分歧自动检测。</div>
     </div>
     <div class="phase-card">
       <div class="ph-num">3</div>
-      <div class="ph-title">Continuous Learning</div>
-      <div class="ph-time">Weeks 5–6</div>
-      <div class="ph-desc">Feedback → DPO pipeline. Automated KB enrichment. Periodic model alignment updates.</div>
+      <div class="ph-title">持续学习系统</div>
+      <div class="ph-time">第 5–6 周</div>
+      <div class="ph-desc">反馈 → 自动学习管线。案例自动入库。诊断模型定期从积累的医师反馈中校准更新。</div>
     </div>
     <div class="phase-card">
       <div class="ph-num">4</div>
-      <div class="ph-title">Production</div>
-      <div class="ph-time">Weeks 7–8</div>
-      <div class="ph-desc">Monitoring dashboard. A/B deliberation rounds. Safety guardrails. Edge case handling.</div>
+      <div class="ph-title">正式运行</div>
+      <div class="ph-time">第 7–8 周</div>
+      <div class="ph-desc">运行监控看板。诊断质量追踪。安全防护机制完善。边界案例处理方案。</div>
     </div>
   </div>
+</section>
 
-  <h3 style="font-size:1.15em;margin-top:36px;margin-bottom:12px;">Safety Guardrails</h3>
+<section>
+  <div class="section-label">安全机制</div>
+  <h2>安全护栏</h2>
   <table class="comp-table">
-    <tr><th>Guardrail</th><th>Mechanism</th></tr>
-    <tr><td>Low confidence escalation</td><td>If confidence &lt; 0.5, report carries an explicit warning banner</td></tr>
-    <tr><td>Unresolved disagreement</td><td>Agents that cannot converge show disagreement prominently at the top of the report</td></tr>
-    <tr><td>Assumption surfacing</td><td>Every assumption is listed explicitly — nothing is silently assumed</td></tr>
-    <tr><td>Doctor as decider</td><td>System suggests; doctor decides. No treatment recommendation is actionable without review</td></tr>
-    <tr><td>Emergency detection</td><td>Keywords (chest pain + radiating, sudden severe headache, etc.) flag report as URGENT</td></tr>
-    <tr><td>Out-of-distribution detection</td><td>If the case is far from any KB match, the system states uncertainty instead of guessing</td></tr>
+    <tr><th>机制</th><th>说明</th></tr>
+    <tr><td>低置信度预警</td><td>当系统对诊断的置信度偏低时，报告以醒目标记提示医师额外关注</td></tr>
+    <tr><td>分歧清晰呈现</td><td>各推理角色未能达成一致的分歧，不会被隐藏或模糊化，而是在报告醒目位置呈现</td></tr>
+    <tr><td>假设全部列出</td><td>推理过程中所做的每一项假设都会被明确列出——医师可以逐一核对和质疑</td></tr>
+    <tr><td>医师始终是决策者</td><td>系统提供参考和建议，治疗方案由医师决定。没有任何治疗建议可以不经过医师审阅而生效</td></tr>
+    <tr><td>紧急信号检测</td><td>输入中包含紧急信号（剧烈胸痛、突发视力丧失、意识改变等）时，报告自动标记为紧急</td></tr>
+    <tr><td>知识盲区声明</td><td>如果患者情况与知识库中任何已知模式都差异较大，系统会明确声明"此情况超出我目前的知识范围"，不做猜测性诊断</td></tr>
   </table>
 </section>
 
-<br>
 <section>
-  <div class="section-label">Key Design Decisions</div>
-  <h2>Summary</h2>
+  <div class="section-label">设计总览</div>
+  <h2>关键设计决策一览</h2>
   <table class="comp-table">
-    <tr><th>Decision</th><th>Choice</th><th>Why</th></tr>
-    <tr><td>Multi-agent vs single model</td><td>Multi-agent</td><td>Adversarial validation catches errors a single model cannot see</td></tr>
-    <tr><td>Deliberation rounds</td><td>2–4, with early exit</td><td>Too few = no validation. Too many = diminishing returns + latency</td></tr>
-    <tr><td>Model alignment</td><td>DPO</td><td>Simpler, more stable than RLHF. Works with explicit preference pairs</td></tr>
-    <tr><td>KB retrieval</td><td>Hybrid (dense + sparse)</td><td>Semantic for symptoms; exact match for drugs, ICD codes, lab values</td></tr>
-    <tr><td>Feedback structure</td><td>4 explicit types</td><td>Different feedback types drive different improvement pathways</td></tr>
-    <tr><td>Assumption handling</td><td>Explicitly surfaced</td><td>Safety-critical: doctors must see and challenge assumptions</td></tr>
-    <tr><td>Model</td><td>Open-source, local</td><td>Patient data never leaves the hospital network</td></tr>
+    <tr><th>决策</th><th>选择</th><th>原因</th></tr>
+    <tr><td>推理模式</td><td>多角色协作而非单一推理</td><td>角色间的质疑与辩论能发现单次推理无法自检的盲区</td></tr>
+    <tr><td>辩论轮次</td><td>2–4 轮，可提前结束</td><td>过少则缺乏验证，过多则降低效率</td></tr>
+    <tr><td>学习方式</td><td>从医师反馈的对比中渐进校准</td><td>比从头训练更稳定，每次校准有对应反馈记录可追溯</td></tr>
+    <tr><td>知识检索</td><td>语义理解 + 精确匹配双模式</td><td>症状描述适合语义理解，药品名称与指标代码适合精确匹配</td></tr>
+    <tr><td>反馈结构</td><td>四种明确的反馈类型</td><td>不同类型的反馈驱动不同的进化路径</td></tr>
+    <tr><td>假设处理</td><td>全部明确列出</td><td>安全关键：医师必须能够逐条审视和质疑系统的假设</td></tr>
+    <tr><td>模型部署</td><td>本地部署</td><td>患者数据完全不出诊所，Emagene 专有方案不外泄</td></tr>
   </table>
 </section>
 
 <div class="page-footer">
-  <p>MedMulti — Multi-Agent Diagnostic System for Private Hospitals</p>
-  <p>Built on: Multi-Agent Debate (Du et al. 2023) · Medprompt+ (Nori et al. 2023) · AMIE (Tu et al. 2024) · DPO (Rafailov et al. 2023)</p>
+  <p>Emagene 专有智能诊断系统 — 长寿疗法 · 多角色协作推理 · 持续学习进化</p>
+  <p>设计参考：多智能体辩论 (Du et al. 2023) · Medprompt+ (Nori et al. 2023) · AMIE (Tu et al. 2024)</p>
 </div>
 
 </main>
