@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedMulti — Multi-Agent Diagnostic System for Private Hospitals</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* Page-specific overrides and additions */
+:root {
+  --med-blue: #58a6ff;
+  --med-green: #3fb950;
+  --med-amber: #e6b450;
+  --med-red: #f85149;
+  --med-purple: #a371f7;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+
+/* Hero */
+.hero { text-align: center; padding: 60px 0 40px; }
+.hero h1 { font-size: 2.6em; letter-spacing: -0.5px; margin-bottom: 12px; }
+.hero .subtitle { font-size: 1.15em; color: var(--text-secondary); max-width: 640px; margin: 0 auto 30px; line-height: 1.6; }
+.hero .badge-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.badge {
+  font-size: 0.8em; padding: 4px 14px; border-radius: 20px;
+  font-weight: 500; border: 1px solid;
+}
+.badge-local { color: var(--med-green); border-color: #2d5a3f; background: rgba(63,185,80,0.08); }
+.badge-multi  { color: var(--med-purple); border-color: #3d2d5a; background: rgba(163,113,247,0.08); }
+.badge-loop  { color: var(--med-amber); border-color: #5a4520; background: rgba(230,180,80,0.08); }
+
+/* Section styling */
+section { margin: 60px 0; }
+.section-label {
+  font-size: 0.75em; text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--med-blue); font-weight: 600; margin-bottom: 8px;
+}
+section h2 {
+  font-family: var(--font-heading);
+  font-size: 1.8em; margin-bottom: 12px; letter-spacing: -0.3px;
+}
+.section-intro { color: var(--text-secondary); margin-bottom: 32px; line-height: 1.65; max-width: 680px; }
+
+/* Architecture diagram */
+.arch-diagram {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px 32px;
+  margin: 32px 0;
+  overflow-x: auto;
+}
+.arch-flow { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; min-width: 600px; }
+.arch-node {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px 20px; text-align: center;
+  min-width: 110px;
+}
+.arch-node .n-label { font-weight: 600; font-size: 0.9em; }
+.arch-node .n-sub   { font-size: 0.72em; color: var(--text-muted); margin-top: 2px; }
+.arch-node.primary  { border-color: var(--med-blue); box-shadow: 0 0 0 1px rgba(88,166,255,0.15); }
+.arch-node.accent   { border-color: var(--accent); }
+.arch-arrow { color: var(--text-muted); font-size: 1.4em; flex-shrink: 0; }
+.arch-kb-row {
+  display: flex; justify-content: center; gap: 24px; margin-top: 20px;
+  padding-top: 20px; border-top: 1px dashed var(--border);
+}
+.arch-kb {
+  background: rgba(63,185,80,0.06); border: 1px dashed #2d5a3f;
+  border-radius: 8px; padding: 12px 20px; text-align: center; min-width: 150px;
+}
+.arch-kb .k-label { font-weight: 600; font-size: 0.82em; color: var(--med-green); }
+.arch-kb .k-sub   { font-size: 0.7em; color: var(--text-muted); margin-top: 4px; }
+
+/* Agent cards */
+.agent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 28px 0; }
+@media (max-width: 640px) { .agent-grid { grid-template-columns: 1fr; } }
+.agent-card {
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+}
+.agent-card .agent-icon { font-size: 1.6em; margin-bottom: 10px; }
+.agent-card .agent-name { font-weight: 700; font-size: 1.05em; margin-bottom: 4px; }
+.agent-card .agent-role { font-size: 0.75em; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 12px; }
+.agent-card .agent-does { font-size: 0.88em; color: var(--text-secondary); line-height: 1.55; }
+
+/* Deliberation rounds — timeline */
+.round-list { margin: 28px 0; }
+.round-item {
+  display: flex; gap: 18px; padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.round-num {
+  flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%;
+  background: var(--bg-secondary); border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1.1em;
+}
+.round-item.active .round-num { border-color: var(--med-blue); background: rgba(88,166,255,0.08); }
+.round-body { flex: 1; }
+.round-body .r-title { font-weight: 600; margin-bottom: 4px; }
+.round-body .r-desc  { font-size: 0.85em; color: var(--text-secondary); line-height: 1.5; }
+.round-body .r-agents { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.r-agents span {
+  font-size: 0.7em; padding: 2px 10px; border-radius: 12px;
+  border: 1px solid var(--border); color: var(--text-secondary);
+}
+
+/* Divergence flow */
+.diverge-box {
+  background: rgba(230,180,80,0.05); border: 1px solid #5a4520;
+  border-radius: var(--radius); padding: 20px 24px; margin: 24px 0;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.diverge-box .dv-label { font-weight: 700; color: var(--med-amber); font-size: 0.9em; white-space: nowrap; }
+.diverge-box .dv-flow  { color: var(--text-secondary); font-size: 0.85em; line-height: 1.5; }
+
+/* Report structure */
+.report-structure {
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; margin: 28px 0;
+}
+.report-block { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+.report-block:last-child { border-bottom: none; }
+.report-block .rb-head { font-weight: 700; font-size: 0.9em; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.report-block .rb-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.report-block .rb-content { font-size: 0.84em; color: var(--text-secondary); line-height: 1.55; }
+.report-block.warn { background: rgba(248,81,73,0.04); }
+.report-block.flag { background: rgba(230,180,80,0.04); }
+
+/* Feedback loop */
+.feedback-flow {
+  display: flex; flex-direction: column; gap: 0; margin: 28px 0;
+}
+.fb-step {
+  display: flex; gap: 18px; padding: 18px 0; position: relative;
+}
+.fb-step::before {
+  content: ''; position: absolute; left: 19px; top: 48px;
+  width: 2px; height: calc(100% - 48px);
+  background: var(--border);
+}
+.fb-step:last-child::before { display: none; }
+.fb-icon {
+  flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--bg-secondary); border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85em; z-index: 1;
+}
+.fb-body { flex: 1; }
+.fb-body .fb-title { font-weight: 600; font-size: 0.95em; margin-bottom: 4px; }
+.fb-body .fb-desc  { font-size: 0.84em; color: var(--text-secondary); line-height: 1.5; }
+.fb-step.fb-highlight .fb-icon { border-color: var(--med-green); background: rgba(63,185,80,0.08); }
+.fb-step.fb-highlight .fb-title { color: var(--med-green); }
+
+/* Code block styling */
+.code-block {
+  background: #0d1117; border: 1px solid var(--border);
+  border-radius: 6px; padding: 16px 20px; margin: 16px 0;
+  font-family: "SF Mono", "Fira Code", monospace; font-size: 0.82em;
+  line-height: 1.65; overflow-x: auto; color: #c9d1d9;
+}
+.code-block .c-key { color: var(--med-blue); }
+.code-block .c-val { color: var(--med-amber); }
+.code-block .c-com { color: #6e7681; }
+
+/* Comparison table */
+.comp-table { width: 100%; margin: 28px 0; border-collapse: collapse; font-size: 0.88em; }
+.comp-table th {
+  text-align: left; padding: 12px 16px; background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border); font-weight: 600;
+}
+.comp-table td {
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  color: var(--text-secondary); vertical-align: top; line-height: 1.5;
+}
+.comp-table tr td:first-child { color: var(--text-primary); font-weight: 500; }
+
+/* Phase timeline */
+.phase-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin: 28px 0; }
+@media (max-width: 700px) { .phase-grid { grid-template-columns: 1fr 1fr; } }
+.phase-card {
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px; text-align: center;
+}
+.phase-card .ph-num { font-size: 2em; font-weight: 800; color: var(--border); margin-bottom: 8px; }
+.phase-card .ph-title { font-weight: 700; font-size: 0.9em; margin-bottom: 4px; }
+.phase-card .ph-time { font-size: 0.72em; color: var(--text-muted); margin-bottom: 10px; }
+.phase-card .ph-desc  { font-size: 0.78em; color: var(--text-secondary); line-height: 1.5; }
+
+/* Footer */
+.page-footer {
+  margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--border);
+  color: var(--text-muted); font-size: 0.78em; text-align: center; line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">GP Articles<span>Training Corpus</span></a>
+    <div class="nav-links">
+      <a href="index.html">Articles</a>
+      <a href="hospital-ai.html" style="color:var(--accent-bright)">MedMulti</a>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="hero">
+  <h1>MedMulti</h1>
+  <p class="subtitle">
+    A multi-agent diagnostic support system for private hospitals.
+    Runs entirely on local infrastructure with open-source models.
+    Thinks by structured disagreement between specialist agents,
+    learns continuously from every doctor's feedback.
+  </p>
+  <div class="badge-row">
+    <span class="badge badge-local">Local Deployment</span>
+    <span class="badge badge-multi">Multi-Agent</span>
+    <span class="badge badge-loop">Continuous Learning</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 1. SYSTEM DESIGN -->
+<!-- ═══════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Part 1</div>
+  <h2>System Design</h2>
+  <p class="section-intro">
+    A single LLM call is not enough for medical diagnosis. The system emulates a team of doctors
+    conferring on a difficult case — generating, challenging, and refining the diagnosis across
+    multiple rounds before producing a report. All inference runs locally on open-source models;
+    only the public knowledge base queries cross the network boundary.
+  </p>
+
+  <div class="arch-diagram">
+    <div class="arch-flow">
+      <div class="arch-node primary">
+        <div class="n-label">Symptom Input</div>
+        <div class="n-sub">patient data + context</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node primary">
+        <div class="n-label">Multi-Agent Engine</div>
+        <div class="n-sub">4 agents deliberating</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node primary">
+        <div class="n-label">Diagnosis Report</div>
+        <div class="n-sub">structured output</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node accent">
+        <div class="n-label">Doctor Review</div>
+        <div class="n-sub">confirm / correct / refine</div>
+      </div>
+    </div>
+    <div class="arch-kb-row">
+      <div class="arch-kb">
+        <div class="k-label">Internal KB</div>
+        <div class="k-sub">protocols · case history · formulary</div>
+      </div>
+      <div class="arch-kb" style="background:rgba(88,166,255,0.05);border-color:#1f3d5a;">
+        <div class="k-label" style="color:var(--med-blue)">Public KB</div>
+        <div class="k-sub">guidelines · literature · drug DB</div>
+      </div>
+      <div class="arch-kb" style="background:rgba(163,113,247,0.05);border-color:#3d2d5a;">
+        <div class="k-label" style="color:var(--med-purple)">Feedback → DPO</div>
+        <div class="k-sub">preference pairs · KB enrichment</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:1.15em;margin-top:36px;margin-bottom:12px;">Deployment Model</h3>
+  <table class="comp-table">
+    <tr><th>Component</th><th>Location</th><th>Rationale</th></tr>
+    <tr>
+      <td>LLM (open-source)</td>
+      <td>Local GPU server</td>
+      <td>Patient data never leaves the hospital network</td>
+    </tr>
+    <tr>
+      <td>Internal KB (vector DB + SQL)</td>
+      <td>Local server</td>
+      <td>Proprietary protocols, case history</td>
+    </tr>
+    <tr>
+      <td>Public KB (PubMed, guidelines)</td>
+      <td>Remote (API / cached mirror)</td>
+      <td>Up-to-date medical literature</td>
+    </tr>
+    <tr>
+      <td>Multi-agent orchestration</td>
+      <td>Local server</td>
+      <td>Coordinates agents, manages deliberation state</td>
+    </tr>
+    <tr>
+      <td>Feedback store + DPO pipeline</td>
+      <td>Local server</td>
+      <td>Doctor feedback is also sensitive data</td>
+    </tr>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 2. MULTI-AGENT THINKING LOOP -->
+<!-- ═══════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Part 2</div>
+  <h2>The Thinking Loop — Multi-Agent Deliberation</h2>
+  <p class="section-intro">
+    The core insight: <strong>a model cannot see its own blind spots.</strong>
+    Four specialist agents engage in structured rounds of proposal, challenge,
+    evidence audit, and synthesis. Disagreements are surfaced, not hidden.
+  </p>
+
+  <!-- Agent roles -->
+  <div class="agent-grid">
+    <div class="agent-card">
+      <div class="agent-icon">🩺</div>
+      <div class="agent-name">Primary Diagnostician</div>
+      <div class="agent-role">Generates and defends</div>
+      <div class="agent-does">
+        Produces the initial differential diagnosis with full reasoning chain
+        and explicit assumptions. Iterates based on peer challenges in subsequent rounds.
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon">⚔️</div>
+      <div class="agent-name">Devil's Advocate</div>
+      <div class="agent-role">Challenges constructively</div>
+      <div class="agent-does">
+        Must find at least 2 challenges. Identifies missing evidence, alternative explanations,
+        and cognitive biases (anchoring, confirmation, availability).
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon">📚</div>
+      <div class="agent-name">Evidence Reviewer</div>
+      <div class="agent-role">Cross-references claims</div>
+      <div class="agent-does">
+        Audits every diagnostic claim against both knowledge bases.
+        Labels each claim: <em>supported</em>, <em>partially supported</em>, or <em>unsupported</em>.
+        Retrieves relevant guidelines and case studies.
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon">📋</div>
+      <div class="agent-name">Synthesizer</div>
+      <div class="agent-role">Integrates and reports</div>
+      <div class="agent-does">
+        Combines all perspectives into a consensus report.
+        Preserves unresolved disagreements prominently.
+        Produces the structured final output.
+      </div>
+    </div>
+  </div>
+
+  <!-- Deliberation rounds timeline -->
+  <h3 style="font-size:1.15em;margin-top:36px;margin-bottom:8px;">Deliberation Protocol</h3>
+  <div class="round-list">
+    <div class="round-item active">
+      <div class="round-num">R1</div>
+      <div class="round-body">
+        <div class="r-title">Generate — Primary Diagnostician</div>
+        <div class="r-desc">Produces differential diagnosis with full reasoning chain and explicitly states every assumption it is making about the patient, the symptoms, and the evidence.</div>
+        <div class="r-agents"><span>Primary Diagnostician</span></div>
+      </div>
+    </div>
+    <div class="round-item active">
+      <div class="round-num">R2</div>
+      <div class="round-body">
+        <div class="r-title">Challenge & Audit — Devil's Advocate + Evidence Reviewer</div>
+        <div class="r-desc">Devil's Advocate identifies weaknesses, alternative hypotheses, and potential biases. Evidence Reviewer cross-references every claim against both KBs and assigns support levels. Both run in parallel.</div>
+        <div class="r-agents"><span>Devil's Advocate</span><span>Evidence Reviewer</span></div>
+      </div>
+    </div>
+    <div class="round-item active">
+      <div class="round-num">R3</div>
+      <div class="round-body">
+        <div class="r-title">Revise — Primary Diagnostician</div>
+        <div class="r-desc">Addresses every challenge. Refines diagnosis, adjusts confidence, incorporates evidence audit. If a challenge is valid, the diagnosis changes. If not, explains why the challenge does not apply.</div>
+        <div class="r-agents"><span>Primary Diagnostician</span></div>
+      </div>
+    </div>
+    <div class="round-item active">
+      <div class="round-num">R4</div>
+      <div class="round-body">
+        <div class="r-title">Synthesize — Synthesizer</div>
+        <div class="r-desc">Integrates all perspectives into the final report. Preserves disagreements that could not be resolved. Outputs the structured diagnosis report ready for doctor review.</div>
+        <div class="r-agents"><span>Synthesizer</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Divergence handling -->
+  <div class="diverge-box">
+    <div class="dv-label">↻ Divergence Handling</div>
+    <div class="dv-flow">
+      <strong>Convergence → early exit.</strong> If the Devil's Advocate and Primary Diagnostician
+      reach agreement (scored by an agreement metric), the loop exits after R3 and skips directly
+      to synthesis.<br>
+      <strong>Divergence → extra rounds.</strong> If disagreement exceeds threshold, additional
+      R2–R3 cycles are triggered, each with deeper evidence retrieval and sharper challenge framing.
+      The system will not produce a report until either convergence or a maximum round limit (6) is hit.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 3. REPORT OUTPUT -->
+<!-- ═══════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Part 3</div>
+  <h2>Diagnosis Report Output</h2>
+  <p class="section-intro">
+    The report is not a single answer — it is a structured document that shows the reasoning,
+    the evidence, the assumptions, and most importantly, <strong>what the system is unsure about.</strong>
+    This is what makes it safe for clinical use.
+  </p>
+
+  <div class="report-structure">
+    <div class="report-block">
+      <div class="rb-head">
+        <span class="rb-dot" style="background:var(--med-blue)"></span> Primary Diagnosis
+      </div>
+      <div class="rb-content">
+        <strong>Condition:</strong> Community-acquired pneumonia (right lower lobe)<br>
+        <strong>Confidence:</strong> 0.82 — supported by fever + cough + right basilar crackles + opacity on CXR<br>
+        <strong>Supporting evidence:</strong> 4 findings matched · 2 guideline references · 3 similar cases in hospital history<br>
+        <strong>Missing evidence:</strong> Sputum culture pending; atypical pathogen panel not yet ordered
+      </div>
+    </div>
+
+    <div class="report-block">
+      <div class="rb-head">
+        <span class="rb-dot" style="background:var(--med-amber)"></span> Differential Diagnosis
+      </div>
+      <div class="rb-content">
+        <strong>1. Pulmonary embolism</strong> — confidence 0.21<br>
+        &nbsp;&nbsp;Why ruled out: No risk factors (no recent surgery, no DVT signs, Wells score = 2). D-dimer would resolve.<br>
+        <strong>2. Bronchitis (acute)</strong> — confidence 0.15<br>
+        &nbsp;&nbsp;Why ruled out: CXR shows focal consolidation inconsistent with bronchitis alone.
+      </div>
+    </div>
+
+    <div class="report-block warn">
+      <div class="rb-head">
+        <span class="rb-dot" style="background:var(--med-red)"></span> Unresolved Disagreements
+      </div>
+      <div class="rb-content">
+        <strong>Disagreement:</strong> Devil's Advocate argues the opacity could be an early mass, not infection.<br>
+        <strong>Primary Diagnostician position:</strong> Clinical picture (acute fever, productive cough) strongly favors infection.<br>
+        <strong>Devil's Advocate position:</strong> Patient is a 30-pack-year smoker; malignancy must be in differential.<br>
+        <strong>Recommendation:</strong> Repeat CXR in 6 weeks after treatment. If opacity persists, order CT chest.
+      </div>
+    </div>
+
+    <div class="report-block">
+      <div class="rb-head">
+        <span class="rb-dot" style="background:var(--med-green)"></span> Recommended Next Steps
+      </div>
+      <div class="rb-content">
+        <strong>Tests:</strong> CBC with diff · Sputum culture + gram stain · Blood cultures ×2 · D-dimer (per disagreement)<br>
+        <strong>Treatment:</strong> Start empiric antibiotics per hospital CAP protocol (ceftriaxone + azithromycin)<br>
+        <strong>Referrals:</strong> None required at this stage<br>
+        <strong>Urgency:</strong> <span style="color:var(--med-amber)">Urgent</span> — admit for IV antibiotics
+      </div>
+    </div>
+
+    <div class="report-block flag">
+      <div class="rb-head">
+        <span class="rb-dot" style="background:var(--med-amber)"></span> Assumptions Made
+      </div>
+      <div class="rb-content">
+        1. Patient has no antibiotic allergies (not documented in chart)<br>
+        2. The CXR opacity is acute, not chronic (no prior imaging for comparison)<br>
+        3. Patient can tolerate oral intake for antibiotic step-down
+      </div>
+    </div>
+
+    <div class="report-block">
+      <div class="rb-head" style="margin-bottom:0;">
+        <span class="rb-dot" style="background:var(--text-muted)"></span> Sources Cited
+      </div>
+      <div class="rb-content" style="font-size:0.78em;">
+        IDSA/ATS 2019 CAP Guidelines · Hospital CAP Protocol v3.2 · 3 similar cases from internal KB (anonymized: #1247, #1301, #1312)
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size:0.82em;color:var(--text-muted);margin-top:12px;">
+    The <strong>Unresolved Disagreements</strong> and <strong>Assumptions Made</strong> sections are the
+    most important safety features. They tell the doctor: "Here is what we are unsure about, and here
+    is what we assumed — please verify."
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 4. CONTINUOUS LEARNING -->
+<!-- ═══════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Part 4</div>
+  <h2>Continuous Learning — Feedback as Training Data</h2>
+  <p class="section-intro">
+    Every doctor interaction is a learning signal. The system treats feedback not as an annotation
+    but as <strong>training data</strong>. It flows into three improvement pathways simultaneously.
+  </p>
+
+  <!-- Feedback types -->
+  <h3 style="font-size:1.15em;margin-top:28px;margin-bottom:12px;">Four Feedback Actions</h3>
+  <div class="agent-grid">
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--med-green)">✓ Confirm</div>
+      <div class="agent-does" style="margin-top:6px;">
+        Diagnosis is correct. Stored as a positive example. Increases the case weight
+        for similar presentations in future retrievals.
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--med-red)">✗ Correct</div>
+      <div class="agent-does" style="margin-top:6px;">
+        Diagnosis is wrong. Doctor provides the correct diagnosis + reasoning.
+        Creates a DPO preference pair: doctor's answer > system's answer.
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--med-amber)">↻ Refine</div>
+      <div class="agent-does" style="margin-top:6px;">
+        Diagnosis is correct but reasoning path was suboptimal.
+        Doctor provides the better reasoning chain. Also creates a DPO pair.
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--med-purple)">+ Add Evidence</div>
+      <div class="agent-does" style="margin-top:6px;">
+        Doctor flags evidence the system missed. That evidence source is indexed
+        and added to the KB for future retrievals.
+      </div>
+    </div>
+  </div>
+
+  <!-- The three pathways -->
+  <h3 style="font-size:1.15em;margin-top:36px;margin-bottom:12px;">Three Improvement Pathways</h3>
+  <div class="feedback-flow">
+    <div class="fb-step fb-highlight">
+      <div class="fb-icon">1</div>
+      <div class="fb-body">
+        <div class="fb-title">Preference Pairs → DPO Model Alignment</div>
+        <div class="fb-desc">
+          Corrections and refinements generate pairwise preferences: <em>doctor's answer > system's answer</em>.
+          Direct Preference Optimization (DPO) is applied periodically (weekly/monthly) to align the model
+          with accumulated clinical judgment. DPO is chosen over RLHF because it is simpler, more stable,
+          and works directly with explicit pairwise preferences without needing a separate reward model.
+        </div>
+      </div>
+    </div>
+    <div class="fb-step fb-highlight">
+      <div class="fb-icon">2</div>
+      <div class="fb-body">
+        <div class="fb-title">KB Enrichment</div>
+        <div class="fb-desc">
+          Every corrected case is anonymized and added to the Internal KB case history —
+          the single most valuable data source for future diagnoses.
+          Doctor-provided reasoning is stored as expert annotation on the case.
+          Missing evidence flagged by doctors is indexed and linked.
+        </div>
+      </div>
+    </div>
+    <div class="fb-step fb-highlight">
+      <div class="fb-icon">3</div>
+      <div class="fb-body">
+        <div class="fb-title">Protocol Evolution Signals</div>
+        <div class="fb-desc">
+          When doctors consistently override the system for a specific condition,
+          the pattern is flagged for protocol review. This closes the loop between
+          the AI system and the hospital's own evolving clinical practice.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:1.15em;margin-top:28px;margin-bottom:8px;">Why DPO (Not RLHF)</h3>
+  <table class="comp-table">
+    <tr><th>Property</th><th>RLHF</th><th>DPO</th></tr>
+    <tr>
+      <td>Requires reward model</td><td>Yes — separate model to train</td><td>No — optimizes preferences directly</td>
+    </tr>
+    <tr>
+      <td>Training stability</td><td>Fragile; needs careful reward hacking mitigation</td><td>Stable; simple cross-entropy-like loss</td>
+    </tr>
+    <tr>
+      <td>Data requirement</td><td>Preference pairs + reward model training</td><td>Preference pairs only</td>
+    </tr>
+    <tr>
+      <td>Fit for small-batch updates</td><td>Poor — reward model needs large data</td><td>Good — works with accumulated batches</td>
+    </tr>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SAFETY & IMPLEMENTATION -->
+<!-- ═══════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Implementation</div>
+  <h2>Rollout Phases</h2>
+  <div class="phase-grid">
+    <div class="phase-card">
+      <div class="ph-num">1</div>
+      <div class="ph-title">Single-Agent + RAG</div>
+      <div class="ph-time">Weeks 1–2</div>
+      <div class="ph-desc">Basic RAG over both KBs. Single LLM with CoT reasoning. Structured report output. Feedback capture.</div>
+    </div>
+    <div class="phase-card">
+      <div class="ph-num">2</div>
+      <div class="ph-title">Multi-Agent</div>
+      <div class="ph-time">Weeks 3–4</div>
+      <div class="ph-desc">Add Devil's Advocate + Evidence Reviewer. Round-based deliberation protocol. Early exit logic.</div>
+    </div>
+    <div class="phase-card">
+      <div class="ph-num">3</div>
+      <div class="ph-title">Continuous Learning</div>
+      <div class="ph-time">Weeks 5–6</div>
+      <div class="ph-desc">Feedback → DPO pipeline. Automated KB enrichment. Periodic model alignment updates.</div>
+    </div>
+    <div class="phase-card">
+      <div class="ph-num">4</div>
+      <div class="ph-title">Production</div>
+      <div class="ph-time">Weeks 7–8</div>
+      <div class="ph-desc">Monitoring dashboard. A/B deliberation rounds. Safety guardrails. Edge case handling.</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:1.15em;margin-top:36px;margin-bottom:12px;">Safety Guardrails</h3>
+  <table class="comp-table">
+    <tr><th>Guardrail</th><th>Mechanism</th></tr>
+    <tr><td>Low confidence escalation</td><td>If confidence &lt; 0.5, report carries an explicit warning banner</td></tr>
+    <tr><td>Unresolved disagreement</td><td>Agents that cannot converge show disagreement prominently at the top of the report</td></tr>
+    <tr><td>Assumption surfacing</td><td>Every assumption is listed explicitly — nothing is silently assumed</td></tr>
+    <tr><td>Doctor as decider</td><td>System suggests; doctor decides. No treatment recommendation is actionable without review</td></tr>
+    <tr><td>Emergency detection</td><td>Keywords (chest pain + radiating, sudden severe headache, etc.) flag report as URGENT</td></tr>
+    <tr><td>Out-of-distribution detection</td><td>If the case is far from any KB match, the system states uncertainty instead of guessing</td></tr>
+  </table>
+</section>
+
+<br>
+<section>
+  <div class="section-label">Key Design Decisions</div>
+  <h2>Summary</h2>
+  <table class="comp-table">
+    <tr><th>Decision</th><th>Choice</th><th>Why</th></tr>
+    <tr><td>Multi-agent vs single model</td><td>Multi-agent</td><td>Adversarial validation catches errors a single model cannot see</td></tr>
+    <tr><td>Deliberation rounds</td><td>2–4, with early exit</td><td>Too few = no validation. Too many = diminishing returns + latency</td></tr>
+    <tr><td>Model alignment</td><td>DPO</td><td>Simpler, more stable than RLHF. Works with explicit preference pairs</td></tr>
+    <tr><td>KB retrieval</td><td>Hybrid (dense + sparse)</td><td>Semantic for symptoms; exact match for drugs, ICD codes, lab values</td></tr>
+    <tr><td>Feedback structure</td><td>4 explicit types</td><td>Different feedback types drive different improvement pathways</td></tr>
+    <tr><td>Assumption handling</td><td>Explicitly surfaced</td><td>Safety-critical: doctors must see and challenge assumptions</td></tr>
+    <tr><td>Model</td><td>Open-source, local</td><td>Patient data never leaves the hospital network</td></tr>
+  </table>
+</section>
+
+<div class="page-footer">
+  <p>MedMulti — Multi-Agent Diagnostic System for Private Hospitals</p>
+  <p>Built on: Multi-Agent Debate (Du et al. 2023) · Medprompt+ (Nori et al. 2023) · AMIE (Tu et al. 2024) · DPO (Rafailov et al. 2023)</p>
+</div>
+
+</main>
+
+</body>
+</html>
